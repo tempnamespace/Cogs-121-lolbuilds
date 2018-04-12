@@ -1,10 +1,12 @@
 Team name:
+
 interacting-with-but-not-selling-real-world-data
 
 Team members:
-Adam Schachne
-Timothy Bian
-Zi Long Pan
+
+* Adam Schachne
+* Timothy Bian
+* Zi Long Pan
 
 1. League of Legends player data analysis:
 League of Legends is one of the most popular online video game across the world. Riot Games, the creator of League of Legends, encourages developers to utilize its comprehensive API to create tools for the player community. As avid gamers and fans of the game, we would love to dedicate our project to creating a “scouter” that analyzes an opponent’s match history and performance to suggest counter measures. We will use Riot’s APIs to get data regarding players and write algorithms to analyze the match data and highlight noteworthy information to prepare our user for the match up. Other popular services only offer information regarding players, but the user must parse through the data and look for worthy information themselves. Our application would eliminate this issue and offer users high level analysis directly.
