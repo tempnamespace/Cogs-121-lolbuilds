@@ -1,0 +1,36 @@
+{
+  "name": "interacting-with-but-not-selling-real-world-data",
+  "version": "0.0.1",
+  "author": "Adam Schachne, Timothy Bian, Zi Long Pan",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tianmubian/CSE121Project"
+  },
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node app.js",
+    "start-watch": "nodemon app.js",
+    "scss": "node-sass --output-style compressed -o public/css scss",
+    "autoprefixer": "postcss -u autoprefixer -r public/css/*",
+    "build-css": "npm run scss && npm run autoprefixer",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\"",
+    "dev": "concurrently --kill-others \"npm run start-watch\" \"npm run watch-css\""
+  },
+  "dependencies": {
+    "express": "3.x",
+    "express3-handlebars": "*",
+    "mongodb": "*",
+    "mongoose": "*"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.2.5",
+    "concurrently": "^3.5.1",
+    "node-sass": "^4.7.2",
+    "nodemon": "^1.14.12",
+    "postcss-cli": "^5.0.0"
+  }
+}
