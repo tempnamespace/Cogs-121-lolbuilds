@@ -1,0 +1,10 @@
+{
+	"johnsmith@mail.com": {
+		"password": "test",
+		"summoner_name": "JohnSmith"
+	},
+	"janedoe@mail.com": {
+		"password": "test",
+		"summoner_name": "JaneDoe"
+	}
+}

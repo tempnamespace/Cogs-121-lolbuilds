@@ -8,7 +8,6 @@ var path = require('path');
 var handlebars = require('express3-handlebars')
 
 // Routes
-var index = require('./routes/index');
 
 var app = express();
 
@@ -33,7 +32,37 @@ if ('development' == app.get('env')) {
 }
 
 // Route requests
-app.get('/', index.view);
+var TEST_DATA = require('./dummy_data/test.json');
+
+app.get('/', function(req, res)
+{
+	var data = {};
+	res.render('index', data);
+});
+
+app.get('/home', function(req, res)
+{
+	var data = {};
+	res.render('home', data);
+});
+
+app.get('/ingame', function(req, res)
+{
+	var data = {};
+	res.render('ingame', data);
+});
+
+app.get('/profile', function(req, res)
+{
+	var data = {};
+	res.render('profile', data);
+});
+
+app.get('/settings', function(req, res)
+{
+	var data = {};
+	res.render('settings', data);
+});
 
 // Start server
 http.createServer(app).listen(app.get('port'), function(){
