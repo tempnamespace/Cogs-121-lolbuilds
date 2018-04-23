@@ -17,7 +17,7 @@
 			<div class="col-3">
 				<a href="/home">Back</a>
 			</div>
-			<div class="col-9 text-center">
+			<div class="col-9 text-center font-weight-bold">
 				Active Game - 0:00 (Loading Screen)
 			</div>
 		</div>
@@ -51,7 +51,7 @@
 		</div>
 
 		<div class="row my-4">
-			<div class="col text-center">
+			<div class="col text-center font-weight-bold">
 				VS
 			</div>
 		</div>
@@ -87,13 +87,13 @@
 		<hr>
 
 		<div class="row my-4">
-			<div class="col text-center">
+			<div class="col text-center font-weight-bold">
 				Item Recommendations
 			</div>
 		</div>
 
 		<div class="row">
-			<div class="col">
+			<div class="col font-weight-bold">
 				Starting Items:
 			</div>
 			<div class="col text-center">
@@ -114,7 +114,7 @@
 		</div>
 
 		<div class="row mt-4">
-			<div class="col">
+			<div class="col font-weight-bold">
 				Final Build:
 			</div>
 			<div class="col text-center">
@@ -149,10 +149,29 @@
 			</div>
 		</div>
 
+		<hr>
+
+		<div class="row my-4">
+			<div class="col text-center font-weight-bold">
+				Tips and Tricks
+			</div>
+		</div>
+		<div class="row">
+			<div class="col text-center">
+				<button type="button" class="btn btn-primary" id="GetATip">Get a Tip</button>
+			</div>
+		</div>
+		<div class="row mt-4">
+			<div class="col text-center">
+				<p id="TipText">New Tip!</p>
+			</div>
+		</div>
+
 	</div>
 
 	<!-- Scripts -->
     {{> bootstrapJS}}
+    <script src="/js/ingame.js"></script>
 
 </body>
 

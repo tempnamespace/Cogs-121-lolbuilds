@@ -51,6 +51,13 @@ app.get('/ingame', function(req, res)
 	var data = {};
 	res.render('ingame', data);
 });
+app.get('/getatip', function(req, res)
+{
+	var tipArray = TEST_DATA.tips;
+	var tip = tipArray[Math.floor(Math.random()*tipArray.length)];
+
+	res.send(tip);
+});
 
 app.get('/profile', function(req, res)
 {
