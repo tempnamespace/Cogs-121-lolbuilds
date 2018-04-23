@@ -2,102 +2,13 @@
 <html lang="en">
 
 <head>
-	{{> head}}
 
-	<title>ready to work.</title>
-
-	<!-- Stylesheets -->
-	{{> bootstrapCSS}}
-	<link rel="stylesheet" href="/css/index.css">
+	<title>interacting-with-but-not-selling-real-world-data</title>
 
 </head>
 
 <body>
-	<div class="container">
-		<div class="row">
-			<div class="d-inline-block mx-auto">
-				<h1 class="font-bold title">ready</h1>
-				<h1 class="font-bold title">to</h1>
-				<h1 class="font-bold title">work.</h1>
-				{{#if signup}}
-				<form class="login mt-1 form" method="get" action="/signupcomplete">
-					<div class="form-group">
-						<input type="text" placeholder="email" name="email" value="{{email}}" class="form-box">
-					</div>
-					<div class="form-group">
-						<input type="password" placeholder="password" name="password" class="form-box">
-					</div>
-					<div class="form-group">
-						<input type="password" placeholder="confirm password" name="confirmPassword" class="form-box">
-					</div>
-					<div class="form-group">
-						<input type="text" placeholder="first name" name="firstName" value="{{firstName}}" class="form-box">
-					</div>
-					<div class="form-group">
-						<input type="text" placeholder="last name" name="lastName" value="{{lastName}}" class="form-box">
-					</div>
-					<input type="submit" value="sign up" class="btn-block font-bold" id="signup-button"/>
-					{{#if emptyField}}
-					<div id="error" class="font-italic text-center mt-1">all fields must be filled</div>
-					{{/if}}
-					{{#if emailTaken}}
-					<div id="error" class="font-italic text-center mt-1">this email is taken</div>
-					{{/if}}
-					{{#if invalidEmail}}
-					<div id="error" class="font-italic text-center mt-1">this email is not valid</div>
-					{{/if}}
-					{{#if mismatchPassword}}
-					<div id="error" class="font-italic text-center mt-1">passwords do not match</div>
-					{{/if}}
-				</form>
-			</div>
-		</div>
-
-		{{else}}
-				<form class="login mt-1 form" method="get" action="/login">
-					<div class="form-group">
-						<input type="text" placeholder="email" name="email" value="{{email}}" class="form-box">
-					</div>
-					<div class="form-group">
-						<input type="password" placeholder="password" name="password" class="form-box">
-					</div>
-					<input type="submit" value="login" class="btn-block font-bold" id="login-button"/>
-					<input type="button" value="sign up" class="btn-block" id="signup-button"/>
-					{{#if loginIncorrect}}
-					<div id="error" class="font-italic text-center mt-1">incorrect login, try again</div>
-					{{/if}}
-				</form>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="d-inline-block mx-auto mt-4 font-italic">
-				<fb:login-button 
-				  scope="public_profile,email"
-				  onlogin="checkLoginState();"
-				  id="facebook-button">
-				</fb:login-button>
-			</div>
-		</div>
-
-		<!--
-		<div class="row">
-			<div class="d-inline-block mx-auto mt-4 font-italic">
-				<a href="/devlogin">
-					<h3>demo login</h3>
-				</a>
-			</div>
-		</div>
-		-->
-		{{/if}}
-	</div>
 	
-	<!-- Scripts -->
-	{{> facebook}}
-	{{> bootstrapJS}}
-	<script src="/js/main.js"></script>
-	<script src="/js/index.js"></script>
-	<script src="/js/facebook.js"></script> 
 </body>
 
 </html>
