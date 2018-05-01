@@ -7,48 +7,33 @@ class NavButtons extends Component {
         super(props);
 
         this.state = {
-            path: window.location.pathname
+            path: window.location.pathname,
+            paths: { // route -> Page
+                "/": "Home",
+                "/profile": "Profile",
+                "/ingame": "Game",
+                "/settings": "Settings",
+            }
         }
     }
 
     render() {
         return (
             <div>
-                <Link to="/">
-                    <Button
-                        onClick={() => this.setState({ path: '/' })}
-                        active={this.state.path == '/'}
-                        inverted>
-                        Home
-                    </Button>
-                </Link>
-
-                <Link to="/profile">
-                    <Button
-                        onClick={() => this.setState({ path: '/profile' })}
-                        active={this.state.path == '/profile'}
-                        inverted>
-                        Profile
-                    </Button>
-                </Link>
-
-                <Link to="/ingame">
-                    <Button
-                        onClick={() => this.setState({ path: '/game' })}
-                        active={this.state.path == '/game'}
-                        inverted>
-                        Game
-                    </Button>
-                </Link>
-
-                <Link to="/settings">
-                    <Button
-                        onClick={() => this.setState({ path: '/settings' })}
-                        active={this.state.path == '/settings'}
-                        inverted>
-                        Settings
-                    </Button>
-                </Link>
+                {
+                    Object.keys(this.state.paths).map((key) => {
+                        return (
+                            <Link to={key}>
+                                <Button
+                                    onClick={() => this.setState({ path: key })}
+                                    active={this.state.path === key}
+                                    inverted>
+                                    {this.state.paths[key]}
+                                </Button>
+                            </Link>
+                        );
+                    })
+                }
             </div>
         )
     }

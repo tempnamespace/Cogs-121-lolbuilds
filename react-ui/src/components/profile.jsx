@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Container, Divider, Input, Card, Icon, Image } from 'semantic-ui-react'
+import { Container,Input, Card, Image } from 'semantic-ui-react'
 
 class Profile extends Component {
     constructor(props) {
@@ -53,7 +53,7 @@ class Profile extends Component {
                         this.setState({ inputValue: e.target.value });
                     }}
                     onKeyPress={(e) => {
-                        if (e.key == 'Enter') {
+                        if (e.key === 'Enter') {
                             this.fetchSummoner(this.state.inputValue);
                             // this.setState({fetchingSummoner: true})
                         }

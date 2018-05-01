@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Container, Divider, Input } from 'semantic-ui-react'
+import { Container } from 'semantic-ui-react'
 
 class Settings extends Component {
     constructor(props) {
