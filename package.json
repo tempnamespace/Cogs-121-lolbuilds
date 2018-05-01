@@ -13,7 +13,8 @@
     "react-ui/node_modules"
   ],
   "dependencies": {
-    "express": "^4.14.1"
+    "express": "^4.14.1",
+    "leaguejs": "^1.9.0"
   },
   "devDependencies": {}
 }

@@ -5,7 +5,10 @@ const numCPUs = require('os').cpus().length;
 
 const PORT = process.env.PORT || 5000;
 
-// Multi-process to utilize all CPU cores.
+const LeagueJs = require('leaguejs/lib/LeagueJS.js');
+const riotAPI = new LeagueJs(process.env.RIOT_API_KEY);
+
+/* // Multi-process to utilize all CPU cores.
 if (cluster.isMaster) {
   console.error(`Node cluster master ${process.pid} is running`);
 
@@ -18,16 +21,28 @@ if (cluster.isMaster) {
     console.error(`Node cluster worker ${worker.process.pid} exited: code ${code}, signal ${signal}`);
   });
 
-} else {
+} else { */
   const app = express();
 
   // Priority serve any static files.
   app.use(express.static(path.resolve(__dirname, './react-ui/build')));
 
-  // Answer API requests.
-  app.get('/api', function (req, res) {
-    res.set('Content-Type', 'application/json');
-    res.send('{"message":"Hello from the custom server!"}');
+  app.get('/matchhistory', function (req, res) {
+    let summoner = req.query.summoner;
+    console.log(summoner);
+    riotAPI.Summoner
+      .gettingByName(summoner, 'na1')
+      .then(data => {
+        'use strict';
+        console.log(data);
+        res.set('Content-Type', 'application/json');
+        return res.send(JSON.stringify(data));
+      })
+      .catch(err => {
+        'use strict';
+        console.log(err);
+        return res.sendStatus(404);
+      });
   });
 
   // All remaining requests return the React app, so it can handle routing.
@@ -38,4 +53,4 @@ if (cluster.isMaster) {
   app.listen(PORT, function () {
     console.error(`Node cluster worker ${process.pid}: listening on port ${PORT}`);
   });
-}
+//}

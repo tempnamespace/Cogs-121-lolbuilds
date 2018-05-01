@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import 'semantic-ui-css/semantic.min.css';
+import Home from './components/home';
+import Game from './components/game';
+import Profile from './components/profile';
+import Settings from './components/settings';
+
+import { Button, Container, Divider, Grid, Header, Image, Menu, Segment } from 'semantic-ui-react'
+import { Route, Switch } from 'react-router';
+import NavButtons from './components/navButtons'
 
 class App extends Component {
   constructor(props) {
@@ -12,7 +21,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('/api')
+    /* fetch('/api')
       .then(response => {
         if (!response.ok) {
           throw new Error(`status ${response.status}`);
@@ -29,27 +38,23 @@ class App extends Component {
           message: `API call failed: ${e}`,
           fetching: false
         });
-      })
+      }) */
   }
 
   render() {
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+          <h2>League of Legends Builds</h2>
+          <NavButtons />
         </div>
-        <p className="App-intro">
-          {'This is '}
-          <a href="https://github.com/mars/heroku-cra-node">
-            {'create-react-app with a custom Node/Express server'}
-          </a><br/>
-        </p>
-        <p className="App-intro">
-          {this.state.fetching
-            ? 'Fetching message from API'
-            : this.state.message}
-        </p>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/ingame" component={Game} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/settings" component={Settings} />
+        </Switch>
+
       </div>
     );
   }
