@@ -23,7 +23,9 @@ class NavButtons extends Component {
                 {
                     Object.keys(this.state.paths).map((key) => {
                         return (
-                            <Link to={key}>
+                            <Link 
+                                key={key}
+                                to={key}>
                                 <Button
                                     onClick={() => this.setState({ path: key })}
                                     active={this.state.path === key}

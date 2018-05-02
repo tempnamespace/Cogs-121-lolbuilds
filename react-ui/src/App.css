@@ -15,3 +15,10 @@
 .ui.inverted.button.active:focus {
   background: white !important;
 }
+
+.summonerCard {
+  width: 290px !important;
+  height: 290px !important;
+  background-size: contain !important;
+  background-image: url(http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/588.png) !important;
+}

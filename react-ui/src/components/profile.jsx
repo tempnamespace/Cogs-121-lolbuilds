@@ -7,8 +7,7 @@ class Profile extends Component {
         super(props);
         this.state = {
             fetchingSummoner: false,
-            inputValue: '',
-            profileData: null
+            inputValue: ''
         };
     }
 
@@ -22,12 +21,8 @@ class Profile extends Component {
             })
             .then(myJson => {
                 console.log(myJson)
-                this.setState(
-                    { 
-                        profileData: myJson,
-                        fetchingSummoner: false
-                    }
-                );
+                this.setState({fetchingSummoner: false});
+                this.props.update(myJson);
             })
             .catch((error) => {
                 console.log(error);
@@ -63,22 +58,21 @@ class Profile extends Component {
                     placeholder='Search for a Summoner...' />
 
                 {
-                    (this.state.profileData != null) &&
+                    (this.props.profileData != null) &&
 
                     <Card centered={true}>
                         <Image
-                            style={{ width: '800px' }}
-                            src={
-                                `http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/${this.state.profileData.profileIconId}.png`
-                            } />
+                            className='summonerCard'
+                            src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/${this.props.profileData.profileIconId}.png`}
+                        />
                         <Card.Content>         
                              <Card.Header>
-                             {this.state.profileData.name}
+                             {this.props.profileData.name}
                             </Card.Header>
                         </Card.Content>
                         <Card.Content extra>
                             <div>                                
-                                Summoner level: {this.state.profileData.summonerLevel}
+                                Summoner level: {this.props.profileData.summonerLevel}
                                 {/* <Icon name='level up' /> */}
                             </div>
                         </Card.Content>
