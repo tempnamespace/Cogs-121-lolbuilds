@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+ import React, { Component } from 'react';
 
 import { Container,Input, Card, Image } from 'semantic-ui-react'
 
@@ -20,9 +20,35 @@ class Profile extends Component {
                 return response.json()
             })
             .then(myJson => {
-                console.log(myJson)
+                //console.log(myJson)
                 this.setState({fetchingSummoner: false});
                 this.props.update(myJson);
+
+                let accountId = myJson.id;
+                //use extracted summoner id to get ranked information
+                fetch(`/rankhistory?accountId=${accountId}`, {
+                    method: "GET"
+                })
+                .then(response => {
+                    return response.json()
+                })
+                .then(rankJson => {
+                    //if a player is not ranked in all 3 ladders, need to erase
+                    //and update json with {}. Otherwise will hold the ranked data
+                    //of the previously searched summoner.
+                    for(let i = 0; i < 3; i++)
+                    {
+                        if(rankJson[i] == null)
+                            rankJson[i] = {};
+                    }
+                    this.props.update(rankJson);
+                    console.log(rankJson);
+                }) 
+                .catch((error) => {
+                    console.log(error);
+                    this.setState({fetchingSummoner: false});
+                });
+
             })
             .catch((error) => {
                 console.log(error);
@@ -75,6 +101,42 @@ class Profile extends Component {
                                 Summoner level: {this.props.profileData.summonerLevel}
                                 {/* <Icon name='level up' /> */}
                             </div>
+                        </Card.Content>
+                        <Card.Content >
+                            {this.props.profileData[0] == null ? null : (
+                                <div>
+                                    {this.props.profileData[0].queueType == null ? (<div>Unranked</div>) : (
+                                        <div>
+                                            <p> 
+                                                {this.props.profileData[0].queueType} <br/>
+                                                {this.props.profileData[0].leagueName} <br/>
+                                                {this.props.profileData[0].tier}: {this.props.profileData[0].rank}
+                                            </p>
+                                            <hr/>
+                                        </div>
+                                    )}
+                                    {this.props.profileData[1].queueType == null ? (<div>Unranked</div>) : (
+                                        <div>
+                                            <p> 
+                                                {this.props.profileData[1].queueType} <br/>
+                                                {this.props.profileData[1].leagueName} <br/>
+                                                {this.props.profileData[1].tier}: {this.props.profileData[1].rank}
+                                            </p>
+                                            <hr/>
+                                        </div>
+                                    )}
+                                    {this.props.profileData[2].queueType == null ? (<div>Unranked</div>) : (
+                                        <div>
+                                            <p> 
+                                                {this.props.profileData[2].queueType} <br/>
+                                                {this.props.profileData[2].leagueName} <br/>
+                                                {this.props.profileData[2].tier}: {this.props.profileData[2].rank}
+                                            </p>
+                                            <hr/>
+                                        </div>
+                                    )}
+                                </div>
+                            )}                        
                         </Card.Content>
                     </Card>
                 }
