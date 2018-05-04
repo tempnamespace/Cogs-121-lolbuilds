@@ -9,7 +9,7 @@ class Ellipsis extends Component {
     }
 
     componentDidMount() {
-        console.log("setting interval");
+        console.log("setting dots");
         this.interval = setInterval(() => {this.addDot()}, this.props.rate);
     }
 

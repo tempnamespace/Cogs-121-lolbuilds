@@ -27,6 +27,7 @@ class App extends Component {
   }
 
   updateProfile = (incomingState) => {
+    console.log("updating profile")
     //take current profile data
     let newProfile = this.state.profileData;
     if (newProfile === null) {

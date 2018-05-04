@@ -1,6 +1,6 @@
  import React, { Component } from 'react';
 
-import { Container,Input, Card, Image } from 'semantic-ui-react'
+import { Container, Header, Input, Card, Image } from 'semantic-ui-react'
 
 class Profile extends Component {
     constructor(props) {
@@ -60,9 +60,12 @@ class Profile extends Component {
         return (
             <div>
                 <Container>
-                    <h3 style={{ paddingTop: '10px' }}>profile page</h3>
-                </Container>
+                    {/* <h3 style={{ paddingTop: '10px' }}>profile page</h3>                 */}
                 <br />
+                <div>
+                    <Header size='huge'>Profile</Header>
+                </div>
+                
                 <Input
                     disabled={this.state.fetchingSummoner}
                     action={this.state.fetchingSummoner ? null : { 
@@ -81,7 +84,9 @@ class Profile extends Component {
                     }}
                     size='huge'
                     loading={this.state.fetchingSummoner}
-                    placeholder='Search for a Summoner...' />
+                    placeholder='Search for a Summoner...' 
+                />
+                </Container>
 
                 {
                     (this.props.profileData != null) &&

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Container } from 'semantic-ui-react'
+import { Container, Header } from 'semantic-ui-react'
 
 class Home extends Component {
     constructor(props) {
@@ -13,7 +13,10 @@ class Home extends Component {
         return (
             <div>
                 <Container>
-                    <h3 style={{paddingTop: '10px'}}>home page</h3>
+                    <br />
+                    <div>
+                        <Header size='huge'>Home</Header>
+                    </div>
                 </Container>
             </div>
         )

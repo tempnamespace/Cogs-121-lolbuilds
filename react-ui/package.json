@@ -7,8 +7,11 @@
     "react-scripts": "^1.1.0"
   },
   "dependencies": {
+    "moment": "^2.22.1",
+    "moment-timezone": "^0.5.16",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-moment": "^0.7.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "semantic-ui-css": "^2.3.1",
@@ -17,7 +20,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
-	  "build-map": "react-scripts build",
+    "build-map": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Loader, Header } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import Ellipsis from './ellipsis';
+import Clock from './clock';
 
 class Game extends Component {
     constructor(props) {
@@ -17,14 +18,31 @@ class Game extends Component {
         };                      
     }
 
+    // componentWillReceiveProps() {
+    //     console.log("received new props, forcing rerender")
+    //     if (this.)
+    //     this.forceUpdate();
+    // }
+
+    componentDidUpdate() {
+        // console.log("update called")
+        // console.log(this.props)
+    }
+
     componentWillMount() {
 
         const CHECK_RATE = 5000; 
 
-        if (this.state.summonerId) {        
+        if (this.state.summonerId) {  
+            console.log("setting interval");     
             this.checkInterval = setInterval(() => this.check(), CHECK_RATE);
             this.check()
-        } 
+        }
+    }
+
+    componentWillUnmount() {
+        console.log("clearing interval");
+        clearInterval(this.checkInterval);
     }
 
     check() {
@@ -33,11 +51,7 @@ class Game extends Component {
             return clearInterval(this.checkInterval);
 
         this.getCurrentGameInfo(id);
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.checkInterval);
-    }
+    }    
 
     getCurrentGameInfo(summonerId) {
         this.setState({loading: true});  
@@ -49,6 +63,7 @@ class Game extends Component {
         })
         .then(json => {
             console.log(json);
+            // gameLength doesnt seem to be consistent
             let time = json.gameLength;            
             this.setState({loading: false, time: time});
         })
@@ -60,17 +75,14 @@ class Game extends Component {
 
     render() {
         return (
-            <div>
-                <br />
+            <div>    
+                <br />            
                 {
-                    this.state.summonerId != null ? 
-
-                        this.state.time ? 
-                        
+                    this.props.profileData != null ? 
+                        this.state.time ?                         
                         (
-                            <div/>
+                            <Clock seconds={this.state.time} />
                         ) 
-                        
                         : 
                         (
                             <Header size='medium'>
@@ -80,11 +92,9 @@ class Game extends Component {
                                 <Ellipsis rate={500}/>
                             </Header>
                         )
-
                     :
-
                     (                        
-                        <div>
+                        <div>                            
                             <Header size='huge'>No Summoner Selected</Header>
                             <Header.Subheader>
                                 Please choose a summoner on the <Link 
