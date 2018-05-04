@@ -29,9 +29,27 @@ if (cluster.isMaster) {
 
   app.get('/matchhistory', function (req, res) {
     let summoner = req.query.summoner;
-    console.log(summoner);
+    //console.log(summoner);
     riotAPI.Summoner
       .gettingByName(summoner, 'na1')
+      .then(data => {
+        'use strict';
+        //console.log(data);
+        res.set('Content-Type', 'application/json');
+        return res.send(JSON.stringify(data));
+      })
+      .catch(err => {
+        'use strict';
+        console.log(err);
+        return res.sendStatus(404);
+      });
+  });
+
+  app.get('/rankhistory', function(req, res) {
+    let accountId = req.query.accountId;
+    //console.log(accountId);
+    riotAPI.League
+      .gettingPositionsForSummonerId(accountId, 'na1')
       .then(data => {
         'use strict';
         console.log(data);
@@ -43,7 +61,8 @@ if (cluster.isMaster) {
         console.log(err);
         return res.sendStatus(404);
       });
-  });
+  })
+
 
   // All remaining requests return the React app, so it can handle routing.
   app.get('*', function(request, response) {
