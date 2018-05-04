@@ -23,7 +23,6 @@ class App extends Component {
   }
 
   updateNavButton = (button) => {
-    console.log("setting active: " + button);
     this.setState({activeButton: button});
   }
 
@@ -58,14 +57,14 @@ class App extends Component {
               return <Home />;
             }}
           />
-          <Route path="/ingame" 
-            render={() => <Game updateButton={this.updateNavButton} profileData={this.state.profileData} />}
-          />
           <Route 
             exact path="/profile"
             render={() => {
               return <Profile update={this.updateProfile} profileData={this.state.profileData} />;
             }}
+          />
+          <Route path="/ingame" 
+            render={() => <Game updateButton={this.updateNavButton} profileData={this.state.profileData} />}
           />
           <Route path="/settings" component={Settings} />
         </Switch>

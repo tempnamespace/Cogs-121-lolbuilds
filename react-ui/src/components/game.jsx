@@ -2,33 +2,60 @@ import React, { Component } from 'react';
 
 import { Loader, Header } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import Ellipsis from './ellipsis';
 
 class Game extends Component {
     constructor(props) {
         super(props);
+
+        console.log(this.props);
+
         this.state = {
-            loading: false
-            //summonerId: this.props.profileData ? this.props.profileData.id : null
-        };
+            loading: false,
+            summonerId: this.props.profileData ? this.props.profileData.id : null,
+            time: null    
+        };                      
     }
 
-    getCurrentGameInfo(summonerId) {      
-        const URL = 'https://na1.api.riotgames.com/lol/spectator/v3/active-games/by-summoner/';
-        fetch(URL + encodeURIComponent(summonerId), {
+    componentWillMount() {
+
+        const CHECK_RATE = 5000; 
+
+        if (this.state.summonerId) {        
+            this.checkInterval = setInterval(() => this.check(), CHECK_RATE);
+            this.check()
+        } 
+    }
+
+    check() {
+        let id = this.state.summonerId;
+        if (!id) 
+            return clearInterval(this.checkInterval);
+
+        this.getCurrentGameInfo(id);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.checkInterval);
+    }
+
+    getCurrentGameInfo(summonerId) {
+        this.setState({loading: true});  
+        fetch(`currentgameinfo?summonerId=${summonerId}`, {
             method: "GET"
         })
-        .then(response => {
-            return response.json()
+        .then(res => {
+            return res.json();
         })
         .then(json => {
-            console.log(json)
-            this.setState({loading: false});
+            console.log(json);
+            let time = json.gameLength;            
+            this.setState({loading: false, time: time});
         })
         .catch((error) => {
             console.log(error);
             this.setState({loading: false});
         });
-        return true;
     }
 
     render() {
@@ -36,9 +63,27 @@ class Game extends Component {
             <div>
                 <br />
                 {
-                    this.props.profileData != null && this.getCurrentGameInfo(this.props.profileData.summonerId) ? (                        
-                        <Loader active inline='centered' />   
-                    ) : (                        
+                    this.state.summonerId != null ? 
+
+                        this.state.time ? 
+                        
+                        (
+                            <div/>
+                        ) 
+                        
+                        : 
+                        (
+                            <Header size='medium'>
+                                <div style={{display: 'initial'}}>
+                                    Checking if {this.props.profileData.name} is in game
+                                </div>
+                                <Ellipsis rate={500}/>
+                            </Header>
+                        )
+
+                    :
+
+                    (                        
                         <div>
                             <Header size='huge'>No Summoner Selected</Header>
                             <Header.Subheader>

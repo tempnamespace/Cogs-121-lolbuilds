@@ -14,8 +14,6 @@ class NavButtons extends Component {
                 "/settings": "Settings",
             }
         }
-
-        console.log("the active page is: " + this.props.active)
     }
 
     render() {

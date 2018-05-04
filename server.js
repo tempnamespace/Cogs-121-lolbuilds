@@ -61,7 +61,26 @@ if (cluster.isMaster) {
         console.log(err);
         return res.sendStatus(404);
       });
-  })
+  });
+
+  app.get('/currentgameinfo', function (req, res) {
+    let sumonerId = req.query.summonerId;
+    //console.log(summoner);
+    riotAPI.Spectator
+      .gettingActiveGame(sumonerId, 'na1')
+      .then(data => {
+        'use strict';
+        //console.log(data);
+        res.set('Content-Type', 'application/json');
+        return res.send(data);
+      })
+      .catch(err => {
+        'use strict';
+        //console.log(err);
+        res.set('Content-Type', 'application/json');
+        return res.status(404).json({ error: 'Not in game' });
+      });
+  });
 
 
   // All remaining requests return the React app, so it can handle routing.
