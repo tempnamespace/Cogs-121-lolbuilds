@@ -7,7 +7,6 @@ class NavButtons extends Component {
         super(props);
 
         this.state = {
-            path: window.location.pathname,
             paths: { // route -> Page
                 "/": "Home",
                 "/profile": "Profile",
@@ -15,6 +14,8 @@ class NavButtons extends Component {
                 "/settings": "Settings",
             }
         }
+
+        console.log("the active page is: " + this.props.active)
     }
 
     render() {
@@ -27,8 +28,8 @@ class NavButtons extends Component {
                                 key={key}
                                 to={key}>
                                 <Button
-                                    onClick={() => this.setState({ path: key })}
-                                    active={this.state.path === key}
+                                    onClick={() => this.props.updateButton(key)}
+                                    active={this.props.active === key}
                                     inverted>
                                     {this.state.paths[key]}
                                 </Button>

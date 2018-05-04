@@ -13,12 +13,18 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeButton: window.location.pathname,
       profileData: null
     };
   }
 
   componentDidMount() {
 
+  }
+
+  updateNavButton = (button) => {
+    console.log("setting active: " + button);
+    this.setState({activeButton: button});
   }
 
   updateProfile = (incomingState) => {
@@ -43,17 +49,23 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <h2>League of Legends Builds</h2>
-          <NavButtons/>
+          <NavButtons updateButton={this.updateNavButton} active={this.state.activeButton}/>
         </div>
         <Switch>
           <Route 
             exact path="/"
-            render={() => <Home />}
+            render={() => {
+              return <Home />;
+            }}
           />
-          <Route path="/ingame" component={Game} />
+          <Route path="/ingame" 
+            render={() => <Game updateButton={this.updateNavButton} profileData={this.state.profileData} />}
+          />
           <Route 
             exact path="/profile"
-            render={() => <Profile update={this.updateProfile} profileData={this.state.profileData} />}
+            render={() => {
+              return <Profile update={this.updateProfile} profileData={this.state.profileData} />;
+            }}
           />
           <Route path="/settings" component={Settings} />
         </Switch>
