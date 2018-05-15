@@ -12,9 +12,12 @@ import 'semantic-ui-css/semantic.min.css';
 class App extends Component {
   constructor(props) {
     super(props);
+
+    const profileData = localStorage.getItem("profileData");
+
     this.state = {
       activeButton: window.location.pathname,
-      profileData: null
+      profileData: JSON.parse(profileData)
     };
   }
 
@@ -40,6 +43,7 @@ class App extends Component {
     });
 
     //set the state just once for all changes
+    localStorage.setItem("profileData", JSON.stringify(newProfile));
     this.setState({profileData: newProfile});
   }
 
