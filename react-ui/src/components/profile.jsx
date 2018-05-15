@@ -94,7 +94,8 @@ class Profile extends Component {
                     <Card centered={true}>
                         <Image
                             className='summonerCard'
-                            src={`http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/${this.props.profileData.profileIconId}.png`}
+                            //https://ddragon.leagueoflegends.com/api/versions.json
+                            src={`http://ddragon.leagueoflegends.com/cdn/8.9.1/img/profileicon/${this.props.profileData.profileIconId}.png`}
                         />
                         <Card.Content>         
                              <Card.Header>

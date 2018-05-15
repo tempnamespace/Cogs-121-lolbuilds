@@ -8,10 +8,10 @@
   },
   "dependencies": {
     "moment": "^2.22.1",
+    "moment-duration-format": "^2.2.2",
     "moment-timezone": "^0.5.16",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-moment": "^0.7.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "semantic-ui-css": "^2.3.1",

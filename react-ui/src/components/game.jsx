@@ -12,9 +12,9 @@ class Game extends Component {
         console.log(this.props);
 
         this.state = {
-            loading: false,
+            // loading: false,
             summonerId: this.props.profileData ? this.props.profileData.id : null,
-            time: null    
+            time: null
         };                      
     }
 
@@ -53,8 +53,8 @@ class Game extends Component {
         this.getCurrentGameInfo(id);
     }    
 
+    // requests the game info for the current summoner
     getCurrentGameInfo(summonerId) {
-        this.setState({loading: true});  
         fetch(`currentgameinfo?summonerId=${summonerId}`, {
             method: "GET"
         })
@@ -63,25 +63,49 @@ class Game extends Component {
         })
         .then(json => {
             console.log(json);
-            // gameLength doesnt seem to be consistent
-            let time = json.gameLength;            
-            this.setState({loading: false, time: time});
+            let gameStartTime = json.gameStartTime;
+            if (this.state.gameStartTime !== gameStartTime) {
+                this.setState({queueId: json.gameQueueConfigId, gameStartTime: gameStartTime});
+            }         
         })
         .catch((error) => {
             console.log(error);
-            this.setState({loading: false});
+            this.setState({gameStartTime: null});
         });
     }
 
     render() {
+
+        const queueId = this.state.queueId;
+        let gameType;
+
+        switch(queueId) {
+            case 420: 
+                gameType = "Ranked Solo"; break;
+            case 430:
+                gameType = "Blind Pick"; break;
+            case 440:
+                gameType = "Ranked Flex"; break;
+            case 450:
+                gameType = "ARAM"; break;
+            case 460:
+                gameType = "Blind Pick 3v3"; break;
+            case 470:
+                gameType = "Ranked 3v3 Flex"; break;
+            default:
+                gameType = "In game";
+        }
+
         return (
             <div>    
                 <br />            
                 {
                     this.props.profileData != null ? 
-                        this.state.time ?                         
+                        this.state.gameStartTime ?                         
                         (
-                            <Clock seconds={this.state.time} />
+                            <div>
+                                {gameType}: <Clock gameStartTime={this.state.gameStartTime} />
+                            </div>
                         ) 
                         : 
                         (
