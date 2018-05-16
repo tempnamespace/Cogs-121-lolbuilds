@@ -20,5 +20,17 @@
   width: 290px !important;
   height: 290px !important;
   background-size: contain !important;
-  background-image: url(http://ddragon.leagueoflegends.com/cdn/6.24.1/img/profileicon/588.png) !important;
+  background-image: url(http://ddragon.leagueoflegends.com/cdn/8.9.1/img/profileicon/588.png) !important;
 }
+
+.champion-grid > .row:first-child {
+  padding-top: 1rem !important;
+}
+
+@font-face {
+  font-family: 'Legendary';
+  src: url('./fonts/Beaufort-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+

@@ -2,21 +2,15 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import momentDurationFormatSetup from 'moment-duration-format';
 
-momentDurationFormatSetup(moment);
-//import 'moment-timezone';
-
 class Clock extends Component {
     constructor(props) {
         super(props);
 
-        // this.state = {
-        //     minutes: Math.floor(this.props.seconds / 60),
-        //     seconds: this.props.seconds % 60
-        // };
+        momentDurationFormatSetup(moment);
     }
 
     componentDidUpdate() {
-        console.log("update:", this.props)
+        //console.log("update:", this.props)
     }
 
     componentDidMount() {

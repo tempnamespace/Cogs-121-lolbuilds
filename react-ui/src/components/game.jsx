@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-
+import ChampionGrid from './championgrid/championgrid';
 import { Loader, Header } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import Ellipsis from './ellipsis';
 import Clock from './clock';
+import Builds from './builds';
 
 class Game extends Component {
     constructor(props) {
@@ -31,7 +32,7 @@ class Game extends Component {
 
     componentWillMount() {
 
-        const CHECK_RATE = 5000; 
+        const CHECK_RATE = 10000; 
 
         if (this.state.summonerId) {  
             console.log("setting interval");     
@@ -97,39 +98,29 @@ class Game extends Component {
         }
 
         return (
-            <div>    
-                <br />            
-                {
-                    this.props.profileData != null ? 
-                        this.state.gameStartTime ?                         
-                        (
-                            <div>
-                                {gameType}: <Clock gameStartTime={this.state.gameStartTime} />
-                            </div>
-                        ) 
-                        : 
-                        (
-                            <Header size='medium'>
-                                <div style={{display: 'initial'}}>
-                                    Checking if {this.props.profileData.name} is in game
-                                </div>
-                                <Ellipsis rate={500}/>
-                            </Header>
-                        )
-                    :
-                    (                        
-                        <div>                            
-                            <Header size='huge'>No Summoner Selected</Header>
-                            <Header.Subheader>
-                                Please choose a summoner on the <Link 
-                                            to={'profile'}
-                                            onClick={() => this.props.updateButton('/profile')}>
-                                            Profile
-                                        </Link> page  
-                            </Header.Subheader>
-                        </div>
-                    )      
-                }        
+            <div>                
+                {this.state.gameStartTime == null && <ChampionGrid />}
+                {this.props.profileData != null ? 
+                    this.state.gameStartTime ?                         
+                        <div>
+                            <p>{gameType}: <Clock gameStartTime={this.state.gameStartTime} /></p>
+                            <Builds summonerId={this.props.profileData.id} />
+                        </div>                    
+                    : 
+                    <Header size='medium'>
+                        Checking if {this.props.profileData.name} is in game<Ellipsis rate={500}/>                         
+                    </Header>
+                :                     
+                <div>                            
+                    <Header size='huge'>No Summoner Selected</Header>
+                    <Header.Subheader>
+                        Please choose a summoner on the <Link 
+                            to={'profile'}
+                            onClick={() => this.props.updateButton('/profile')}>
+                            Profile
+                        </Link> page  
+                    </Header.Subheader>
+                </div>}        
             </div>
         )
     }

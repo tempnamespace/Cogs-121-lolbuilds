@@ -31,9 +31,7 @@ class Ellipsis extends Component {
 
     render() {
         return (
-            <div style={{position: 'fixed', display: 'initial'}}>
-                {this.state.dots}
-            </div>
+            this.state.dots
         )
     }
 }
