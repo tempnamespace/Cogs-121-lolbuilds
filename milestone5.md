@@ -1,5 +1,5 @@
-+![](https://i.imgur.com/AXCFY3I.jpg)
-+![](https://i.imgur.com/LI5Eat8.jpg)
+![](https://i.imgur.com/AXCFY3I.jpg)
+![](https://i.imgur.com/LI5Eat8.jpg)
 
 We made a update to our front design to be more visually engaging and concisely organized. Although color scheme and some details are not yet refined, this iteration of the design should be a lot more captivating.
 This design ensures that our functionality is easy to use and directly available to the users (as well as emphasized). We got rid of tabs which adds unecessary load to user accessibility.
