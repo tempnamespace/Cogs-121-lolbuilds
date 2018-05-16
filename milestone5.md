@@ -1,6 +1,6 @@
 ![](https://i.imgur.com/AXCFY3I.jpg)
 ![](https://i.imgur.com/LI5Eat8.jpg)
-![](https://imgur.com/a/GvC3vGv)
+![](https://i.imgur.com/EsTKfSB.png)
 
 We updated our frontend design to be more visually engaging and concisely organized. Although color scheme and some details are not yet refined, this iteration of the design should be a lot more captivating.
 This design ensures that our functionality is easy to use and directly available to the users (as well as emphasized). For instance, we removed tab navigation which added unecessary load to user accessibility.
