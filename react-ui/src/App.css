@@ -81,7 +81,19 @@
 
 
 .navButton:hover {
-  color: #b7afaf;
+  color: #b7afaf !important;
+}
+
+.navButton-active:hover {
+  color: #b7afaf !important;
+}
+
+.navButton {
+  background: linear-gradient( to left, #020c15 0%, #575648 40%, #aca07b 50%, #575648 60%, #020c15 100% ) left bottom transparent no-repeat;
+  background-size: 0% 2.5px;
+  background-position-x: center;
+  padding-bottom: 2.5px !important;
+  transition: background-size 0.3s; 
 }
 
 .navButton-active {
@@ -89,6 +101,8 @@
   background-size: 90% 2.5px;
   background-position-x: center;
   padding-bottom: 2.5px !important;
+  /* animation: fadeIn 1s; */
+  transition: background-size 0.5s;
 }
 
 

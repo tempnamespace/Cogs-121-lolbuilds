@@ -51,6 +51,7 @@ class ChampionGrid extends Component {
                     {champions.map((champion) => 
                         <Image 
                             key={champion}
+                            style={champion !== 'Random' ? {cursor: 'pointer'} : null}
                             src={champion === 'Random' ? require('../../images/Random.png') 
                                 : `http://ddragon.leagueoflegends.com/cdn/8.9.1/img/champion/${champion}.png`} 
                             onClick={handleClick(champion)}
