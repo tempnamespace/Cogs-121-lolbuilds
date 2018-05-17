@@ -86,9 +86,9 @@
 
 .navButton-active {
   background: linear-gradient( to left, #020c15 0%, #575648 40%, #aca07b 50%, #575648 60%, #020c15 100% ) left bottom transparent no-repeat;
-  background-size: 90% 1.5px;
+  background-size: 90% 2.5px;
   background-position-x: center;
-  padding-bottom: 2px !important;
+  padding-bottom: 2.5px !important;
 }
 
 

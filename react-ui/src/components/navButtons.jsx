@@ -26,9 +26,9 @@ class NavButtons extends Component {
                                 to={key}
                                 onClick={() => this.props.updateButton(key)}
                                 className={this.props.active === key ? 'navButton-active' : 'navButton'}
-                                style={{color: 'white', padding: '0px 10px 0px 10px', fontSize: '0.846353rem', lineHeight: '2.28571em'}}
+                                style={{color: 'white', padding: '0px 10px 0px 10px', fontSize: '19px', lineHeight: '2.28571em'}}
                                 >
-                                {this.state.paths[key]}
+                                {this.state.paths[key].toUpperCase()}
                                 
                             </Link>
                         );
