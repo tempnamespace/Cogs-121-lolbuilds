@@ -98,7 +98,7 @@ class Game extends Component {
         }
 
         return (
-            <div>                
+            <div className="App-game">                
                 {this.state.gameStartTime == null && <ChampionGrid />}
                 {this.props.profileData != null ? 
                     this.state.gameStartTime ?                         

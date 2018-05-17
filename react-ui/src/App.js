@@ -3,7 +3,7 @@ import Home from './components/home';
 import Game from './components/game';
 import Profile from './components/profile';
 import Settings from './components/settings';
-import { Route, Switch } from 'react-router';
+import { Route, Switch, Redirect } from 'react-router';
 import NavButtons from './components/navButtons'
 
 import './App.css';
@@ -51,7 +51,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
+        <div className="App-header">          
           <h2>League of Legends Builds</h2>
           <NavButtons updateButton={this.updateNavButton} active={this.state.activeButton}/>
         </div>
@@ -59,9 +59,12 @@ class App extends Component {
           <Route 
             exact path="/"
             render={() => {
-              return <Home />;
-            }}
-          />
+              if (this.state.profileData) {
+                return <Redirect to="/profile"/>
+              }
+
+              return <Home />}}
+           />
           <Route 
             exact path="/profile"
             render={() => {

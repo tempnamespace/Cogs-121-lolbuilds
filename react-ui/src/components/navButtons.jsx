@@ -8,7 +8,6 @@ class NavButtons extends Component {
 
         this.state = {
             paths: { // route -> Page
-                "/": "Home",
                 "/profile": "Profile",
                 "/ingame": "Game",
                 "/settings": "Settings",
@@ -24,13 +23,13 @@ class NavButtons extends Component {
                         return (
                             <Link 
                                 key={key}
-                                to={key}>
-                                <Button
-                                    onClick={() => this.props.updateButton(key)}
-                                    active={this.props.active === key}
-                                    inverted>
-                                    {this.state.paths[key]}
-                                </Button>
+                                to={key}
+                                onClick={() => this.props.updateButton(key)}
+                                className={this.props.active === key ? 'navButton-active' : 'navButton'}
+                                style={{color: 'white', padding: '0px 10px 0px 10px', fontSize: '0.846353rem', lineHeight: '2.28571em'}}
+                                >
+                                {this.state.paths[key]}
+                                
                             </Link>
                         );
                     })

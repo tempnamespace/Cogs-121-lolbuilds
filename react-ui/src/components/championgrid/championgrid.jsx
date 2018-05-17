@@ -43,13 +43,14 @@ class ChampionGrid extends Component {
                     "marginRight": "auto"
                 }}>
                 <br/>
-                <Header style={{fontFamily: 'Legendary'}} size='huge'>
+                <Header size='huge'>
                     CHOOSE YOUR CHAMPION
                 </Header>
 
                 <div className='champion-grid'>
                     {champions.map((champion) => 
                         <Image 
+                            key={champion}
                             src={champion === 'Random' ? require('../../images/Random.png') 
                                 : `http://ddragon.leagueoflegends.com/cdn/8.9.1/img/champion/${champion}.png`} 
                             onClick={handleClick(champion)}

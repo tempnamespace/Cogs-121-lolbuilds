@@ -63,7 +63,7 @@ class Profile extends Component {
                     {/* <h3 style={{ paddingTop: '10px' }}>profile page</h3>                 */}
                 <br />
                 <div>
-                    <Header size='huge'>Profile</Header>
+                    <Header style={{color: 'white'}} size='huge'>Profile</Header>
                 </div>
                 
                 <Input
