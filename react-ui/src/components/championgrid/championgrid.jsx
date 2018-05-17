@@ -20,7 +20,7 @@ class ChampionGrid extends Component {
         const MAXCOLS = 6;
 
         for (let i = 0; i < champions.length; i++) {
-            if (i % MAXCOLS == 0) {
+            if (i % MAXCOLS === 0) {
                 cols.push([]);
                 rows++; 
             }
@@ -28,6 +28,9 @@ class ChampionGrid extends Component {
         }
         
         const handleClick = (champion) => () => {
+            if (champion === 'Random') {
+                return null;
+            }
             console.log(champion);
             this.setState({selectedChampion: champion});
         }
@@ -35,7 +38,7 @@ class ChampionGrid extends Component {
         return (
             <div 
                 style={{
-                    "width": '65%',
+                    "width": '85%',
                     "marginLeft": "auto",
                     "marginRight": "auto"
                 }}>
@@ -43,26 +46,17 @@ class ChampionGrid extends Component {
                 <Header style={{fontFamily: 'Legendary'}} size='huge'>
                     CHOOSE YOUR CHAMPION
                 </Header>
-                <Grid container className={'champion-grid'} columns={MAXCOLS}>                
-                    {cols.map((row) => {
-                        return (
-                            <Grid.Row key={++key}>
-                                {row.map((champion) => {
-                                    return (                                        
-                                        <Grid.Column key={champion}>
-                                        {
-                                            champion==='Random' ?
-                                                <Image style={{width: '120px'}} src={require('./Random.png')} />                                                
-                                            :
-                                                <Image onClick={handleClick(champion)} style={{width: '120px'}} src={`http://ddragon.leagueoflegends.com/cdn/8.9.1/img/champion/${champion}.png`} />
-                                        }                                        
-                                        </Grid.Column>
-                                    )                                
-                                })}   
-                            </Grid.Row>
-                        )                
-                    })}
-                </Grid>
+
+                <div className='champion-grid'>
+                    {champions.map((champion) => 
+                        <Image 
+                            src={champion === 'Random' ? require('../../images/Random.png') 
+                                : `http://ddragon.leagueoflegends.com/cdn/8.9.1/img/champion/${champion}.png`} 
+                            onClick={handleClick(champion)}
+                        />
+                    )}
+                </div>
+
                 {this.state.selectedChampion && 
                     <Runes 
                         champion={this.state.selectedChampion} 

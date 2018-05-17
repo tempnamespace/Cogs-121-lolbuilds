@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-image: './images/background.png';
 }
 
 .App-header {
@@ -23,9 +24,27 @@
   background-image: url(http://ddragon.leagueoflegends.com/cdn/8.9.1/img/profileicon/588.png) !important;
 }
 
-.champion-grid > .row:first-child {
+/* .champion-grid > .row:first-child {
   padding-top: 1rem !important;
+} */
+
+.champion-grid {
+  height: calc(600px + 0.5 * 1vw);
+  overflow: overlay;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  max-width: 740px;
+  margin: auto;
 }
+
+.champion-grid img {
+  flex: 0 0 120px;
+  height: 120px;
+  width: 120px;
+  margin-right: calc(0.1 * 1vw);
+  margin-bottom:calc(0.1 * 1vw);
+} 
 
 @font-face {
   font-family: 'Legendary';
