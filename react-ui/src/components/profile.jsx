@@ -1,6 +1,6 @@
- import React, { Component } from 'react';
+import React, { Component } from 'react';
 
-import { Container, Header, Input, Card, Image } from 'semantic-ui-react'
+import { Header, Input, Card, Image } from 'semantic-ui-react'
 
 class Profile extends Component {
     constructor(props) {
@@ -85,113 +85,114 @@ class Profile extends Component {
     render() {
         return (
             <div>
-                <br/>
-                <Container>
-                    {/* <h3 style={{ paddingTop: '10px' }}>profile page</h3>                 */}
-                <div>
-                    <Header style={{color: 'white'}} size='huge'>Profile</Header>
-                </div>
-                
-                <Input
-                    disabled={this.state.fetchingSummoner}
-                    action={this.state.fetchingSummoner ? null : { 
-                        content: 'Search', onClick: () => { 
-                            this.fetchSummoner(this.state.inputValue);
-                        } 
-                    }}
-                    onChange={(e) => {
-                        this.setState({ inputValue: e.target.value });
-                    }}
-                    onKeyPress={(e) => {
-                        if (e.key === 'Enter') {
-                            this.fetchSummoner(this.state.inputValue);
-                            // this.setState({fetchingSummoner: true})
-                        }
-                    }}
-                    size='huge'
-                    loading={this.state.fetchingSummoner}
-                    placeholder='Search for a Summoner...' 
-                />
-                </Container>
+                <div class="container" id="lookupDiv">
 
-                {
-                    (this.props.profileData != null) &&
+                    <p id="lookupTitleText">Get the highest winrate builds.</p>
+                    
+                    <Input
+                        disabled={this.state.fetchingSummoner}
+                        action={this.state.fetchingSummoner ? null : { 
+                            content: 'Search', onClick: () => { 
+                                this.fetchSummoner(this.state.inputValue);
+                            } 
+                        }}
+                        onChange={(e) => {
+                            this.setState({ inputValue: e.target.value });
+                        }}
+                        onKeyPress={(e) => {
+                            if (e.key === 'Enter') {
+                                this.fetchSummoner(this.state.inputValue);
+                                // this.setState({fetchingSummoner: true})
+                            }
+                        }}
+                        size='huge'
+                        loading={this.state.fetchingSummoner}
+                        placeholder='Search for a Summoner...' 
+                    />
 
-                    <Card centered={true}>
-                        <Image
-                            className='summonerCard'
-                            //https://ddragon.leagueoflegends.com/api/versions.json
-                            src={`http://ddragon.leagueoflegends.com/cdn/8.9.1/img/profileicon/${this.props.profileData.profileIconId}.png`}
-                        />
-                        <Card.Content>         
-                             <Card.Header>
-                             {this.props.profileData.name}
-                            </Card.Header>
-                        </Card.Content>
-                        <Card.Content extra>
-                            <div>                                
-                                Summoner level: {this.props.profileData.summonerLevel}
-                                {/* <Icon name='level up' /> */}
-                            </div>
-                        </Card.Content>
-                        <Card.Content >
-                            {this.props.profileData[0] == null ? null : (
-                                <div>
-                                    {this.props.profileData[0].queueType == null ? 
-                                        (<div>
-                                            Unranked Solo Queue
-                                            <img src={require('../images/provisional.png')}/>
-                                            <hr/>
-                                        </div>) : (
-                                        <div>
-                                            <p> 
-                                                {this.props.profileData[0].queueType} <br/>
-                                                {this.props.profileData[0].leagueName} <br/>
-                                                {this.props.profileData[0].tier}: {this.props.profileData[0].rank}
-                                            </p>
-                                            <img src={require(`../images/${this.props.profileData[0].tierRankPhotoKey}`)}/>
-                                            <hr/>
-                                        </div>
-                                    )}
-                                    {this.props.profileData[1].queueType == null ? 
-                                        (<div>
-                                            Unranked Flex Queue
-                                            <img src={require('../images/provisional.png')}/>
-                                            <hr/>
-                                        </div>) : (
-                                        <div>
-                                            <p> 
-                                                {this.props.profileData[1].queueType} <br/>
-                                                {this.props.profileData[1].leagueName} <br/>
-                                                {this.props.profileData[1].tier}: {this.props.profileData[1].rank}
-                                            </p>
-                                            <img src={require(`../images/${this.props.profileData[0].tierRankPhotoKey}`)}/>
-                                            <hr/>
-                                        </div>
-                                    )}
-                                    {this.props.profileData[2].queueType == null ? 
-                                        (<div>
-                                            Unranked Twisted Treeline
-                                            <img src={require('../images/provisional.png')}/>
-                                            <hr/>
-                                        </div>) : (
-                                        <div>
-                                            <p> 
-                                                {this.props.profileData[2].queueType} <br/>
-                                                {this.props.profileData[2].leagueName} <br/>
-                                                {this.props.profileData[2].tier}: {this.props.profileData[2].rank}
-                                            </p>
-                                            <img src={require(`../images/${this.props.profileData[0].tierRankPhotoKey}`)}/>
-                                            <hr/>
-                                        </div>
-                                    )}
+                    {
+                        (this.props.profileData != null) &&
+
+                        <Card centered={true}>
+                            <Image
+                                className='summonerCard'
+                                //https://ddragon.leagueoflegends.com/api/versions.json
+                                src={`http://ddragon.leagueoflegends.com/cdn/8.9.1/img/profileicon/${this.props.profileData.profileIconId}.png`}
+                            />
+                            <Card.Content>         
+                                 <Card.Header>
+                                 {this.props.profileData.name}
+                                </Card.Header>
+                            </Card.Content>
+                            <Card.Content extra>
+                                <div>                                
+                                    Summoner level: {this.props.profileData.summonerLevel}
+                                    {/* <Icon name='level up' /> */}
                                 </div>
-                            )}                        
-                        </Card.Content>
-                    </Card>
-                }
+                            </Card.Content>
+                            <Card.Content >
+                                {this.props.profileData[0] == null ? null : (
+                                    <div>
+                                        {this.props.profileData[0].queueType == null ? 
+                                            (<div>
+                                                Unranked Solo Queue
+                                                <img src={require('../images/provisional.png')}/>
+                                                <hr/>
+                                            </div>) : (
+                                            <div>
+                                                <p> 
+                                                    {this.props.profileData[0].queueType} <br/>
+                                                    {this.props.profileData[0].leagueName} <br/>
+                                                    {this.props.profileData[0].tier}: {this.props.profileData[0].rank}
+                                                </p>
+                                                <img src={require(`../images/${this.props.profileData[0].tierRankPhotoKey}`)}/>
+                                                <hr/>
+                                            </div>
+                                        )}
+                                        {this.props.profileData[1].queueType == null ? 
+                                            (<div>
+                                                Unranked Flex Queue
+                                                <img src={require('../images/provisional.png')}/>
+                                                <hr/>
+                                            </div>) : (
+                                            <div>
+                                                <p> 
+                                                    {this.props.profileData[1].queueType} <br/>
+                                                    {this.props.profileData[1].leagueName} <br/>
+                                                    {this.props.profileData[1].tier}: {this.props.profileData[1].rank}
+                                                </p>
+                                                <img src={require(`../images/${this.props.profileData[0].tierRankPhotoKey}`)}/>
+                                                <hr/>
+                                            </div>
+                                        )}
+                                        {this.props.profileData[2].queueType == null ? 
+                                            (<div>
+                                                Unranked Twisted Treeline
+                                                <img src={require('../images/provisional.png')}/>
+                                                <hr/>
+                                            </div>) : (
+                                            <div>
+                                                <p> 
+                                                    {this.props.profileData[2].queueType} <br/>
+                                                    {this.props.profileData[2].leagueName} <br/>
+                                                    {this.props.profileData[2].tier}: {this.props.profileData[2].rank}
+                                                </p>
+                                                <img src={require(`../images/${this.props.profileData[0].tierRankPhotoKey}`)}/>
+                                                <hr/>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}                        
+                            </Card.Content>
+                        </Card>
+                    }
+                </div>
+
+                <div class="container" id="searchHistDiv">
+                    <p id="searchTitleText">Recent Searches</p>
+                </div>
             </div>
-        )
+        );
     }
 }
 

@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
+import { Route, Switch, Redirect } from 'react-router';
+
 import Home from './components/home';
 import Game from './components/game';
 import Profile from './components/profile';
 import Settings from './components/settings';
-import { Route, Switch, Redirect } from 'react-router';
 import NavButtons from './components/navButtons'
 import axios from 'axios'
 
 import 'semantic-ui-css/semantic.min.css';
-import './css/App.css';
+import './css/scss/App.scss';
 
 class App extends Component {
   constructor(props) {
@@ -66,17 +67,21 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">          
-          <h2>LeagueBuilds</h2>
-          <NavButtons updateButton={this.updateNavButton} active={this.state.activeButton}/>
+
+        <div className="App-header container">          
+          <p id="navBrand">Zephyr</p>
+          <div id="navMenu">
+            <NavButtons updateButton={this.updateNavButton} active={this.state.activeButton}/>
+          </div>
         </div>
+
         <Switch>
           <Route 
             exact path="/"
             render={() => {
-              if (this.state.profileData) {
+              //if (this.state.profileData) {
                 return <Redirect to="/profile"/>
-              }
+              //}
 
               return <Home />}}
            />
