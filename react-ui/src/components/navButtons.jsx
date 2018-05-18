@@ -23,8 +23,14 @@ class NavButtons extends Component {
           return (
             <Link 
               key={key}
-              to={key}
-              onClick={() => this.props.updateButton(key)}
+              to={key}                            
+              onClick={(e) => {                
+                if (key !== this.props.active) {
+                  this.props.updateButton(key)
+                } else {
+                  e.preventDefault();
+                }                               
+              }}
               className={this.props.active === key ? 'navButton-active' : 'navButton'}
             >
               {this.state.paths[key].toUpperCase()}
