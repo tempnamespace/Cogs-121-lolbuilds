@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Modal, Header, Button, Icon, Container } from 'semantic-ui-react';
+import { Modal, Header, Button, Icon, Container, Image } from 'semantic-ui-react';
 
 //https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/SummonAery/SummonAery.png
 
@@ -9,6 +9,7 @@ class Runes extends Component {
         super(props);
 
         this.state = {
+            runePage: null,
             modalOpen: true,
             loading: false
         };
@@ -21,14 +22,15 @@ class Runes extends Component {
     fetchRunePath() {
         this.setState({ loading: true });
 
-        fetch(`runes?champion=${this.props.champion}`, {
+        fetch(`/runes?champion=${this.props.champion}`, {
             method: "GET"
         })
             .then(res => {
                 return res.json();
             })
-            .then(json => {
-                console.log(json);
+            .then(json => {               
+                this.setState({ runePage: json });
+                //console.log(this.state.runePage);
                 this.setState({ loading: false });
             })
             .catch((error) => {
@@ -46,7 +48,18 @@ class Runes extends Component {
 
                 <Header content={this.props.champion} />
                 <Modal.Content>
-                    <h3>Rune information goes here</h3>
+                    {this.state.runePage == null ? null : (
+                        <div>
+                            {this.state.runePage.map((rune) =>     
+                                <Image 
+                                    centered={true}
+                                    key={rune}
+                                    src={`http://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`} 
+                                />
+                            )}
+                        </div>
+ 
+                    )}
                 </Modal.Content>
                 <Modal.Actions>
                     <Button color='green' onClick={() => {this.props.close()}} inverted>
