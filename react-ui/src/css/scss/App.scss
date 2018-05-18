@@ -60,6 +60,7 @@ $lolBlue: rgba(113, 181, 189, 1);
 $lolBlueDark: rgba(12, 118, 128, 1);
 $lolBlack: rgba(12, 12, 12, 1);
 
+// Gradient used in navbar underline
 $gradientDark: rgba(8, 23, 32, 1);
 $gradientMid: rgba(87, 86, 72, 1);
 $gradientLight: rgba(172, 160, 123, 1);
@@ -180,7 +181,31 @@ body {
 
 // Profile ////////////////////////////////////////////////////////////////////
 
+#lookupDiv {
+  //min-height: 66vh;
+  margin-top: 25vh;
+  margin-bottom: 25vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
+  #lookupTitleText {
+    font-family: $titleFont;
+    font-weight: bold;
+    font-size: 5rem;
+    color: $lolBlue;
+  }
+}
+
+#searchHistDiv {
+
+  #searchTitleText {
+    font-family: $titleFont;
+    font-weight: bold;
+    font-size: $fontSizeBig;
+    color: $lolGold;
+  }
+}
 
 // TODO refactor below ////////////////////////////////////////////////////////
 

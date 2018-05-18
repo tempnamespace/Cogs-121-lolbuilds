@@ -7,6 +7,7 @@ import Profile from './components/profile';
 import Settings from './components/settings';
 import NavButtons from './components/navButtons'
 
+import 'semantic-ui-css/semantic.min.css';
 import './css/scss/App.scss';
 
 class App extends Component {
