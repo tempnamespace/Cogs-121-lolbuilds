@@ -13,8 +13,10 @@
     "react-ui/node_modules"
   ],
   "dependencies": {
+    "axios": "^0.18.0",
     "express": "^4.14.1",
-    "leaguejs": "^1.9.0"
+    "leaguejs": "^1.9.0",
+    "react-tippy": "^1.2.2"
   },
   "devDependencies": {}
 }

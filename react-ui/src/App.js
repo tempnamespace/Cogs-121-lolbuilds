@@ -5,6 +5,7 @@ import Profile from './components/profile';
 import Settings from './components/settings';
 import { Route, Switch, Redirect } from 'react-router';
 import NavButtons from './components/navButtons'
+import axios from 'axios'
 
 import 'semantic-ui-css/semantic.min.css';
 import './css/App.css';
