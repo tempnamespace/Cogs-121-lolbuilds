@@ -52,6 +52,7 @@ class Runes extends Component {
                         <div>
                             {this.state.runePage.map((rune) =>     
                                 <Image 
+                                    centered={true}
                                     key={rune}
                                     src={`http://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`} 
                                 />

@@ -42,6 +42,7 @@ class Builds extends Component {
                     <div className='build-path'>
                         {this.state.buildPath.map((item) => 
                             <Image 
+                                centered={true}
                                 key={item}
                                 src={`http://ddragon.leagueoflegends.com/cdn/8.9.1/img/item/${item}.png`} 
                             />
