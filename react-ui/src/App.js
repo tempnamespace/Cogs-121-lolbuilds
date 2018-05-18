@@ -7,7 +7,7 @@ import { Route, Switch, Redirect } from 'react-router';
 import NavButtons from './components/navButtons'
 
 import 'semantic-ui-css/semantic.min.css';
-import './css/App.css';
+import './css/scss/App.scss';
 
 class App extends Component {
   constructor(props) {
@@ -73,9 +73,9 @@ class App extends Component {
           <Route 
             exact path="/"
             render={() => {
-              if (this.state.profileData) {
+              //if (this.state.profileData) {
                 return <Redirect to="/profile"/>
-              }
+              //}
 
               return <Home />}}
            />
