@@ -42,7 +42,6 @@ class ChampionGrid extends Component {
                     "marginLeft": "auto",
                     "marginRight": "auto"
                 }}>
-                <br/>
                 <Header size='huge'>
                     CHOOSE YOUR CHAMPION
                 </Header>
