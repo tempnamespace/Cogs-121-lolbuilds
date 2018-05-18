@@ -110,7 +110,7 @@ class Game extends Component {
                         </Header>
                 :                     
                     <div>                            
-                        <Header size='huge'>No Summoner Selected</Header>
+                        <Header style={{color: 'white'}} size='huge'>No Summoner Selected</Header>
                         <Header.Subheader>
                             Please choose a summoner on the <Link 
                                 to={'profile'}
