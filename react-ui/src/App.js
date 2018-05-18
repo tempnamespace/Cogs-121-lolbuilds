@@ -7,11 +7,7 @@ import { Route, Switch, Redirect } from 'react-router';
 import NavButtons from './components/navButtons'
 
 import 'semantic-ui-css/semantic.min.css';
-<<<<<<< HEAD
-import './App.css';
-=======
 import './css/App.css';
->>>>>>> 0ee697119d5be4951ea36e154e103b5812ed018e
 
 class App extends Component {
   constructor(props) {
