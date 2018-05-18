@@ -142,7 +142,7 @@ body {
     display: inline-block;
     margin-left: auto;
     padding-right: 35px;
-    
+
     .navButton {
       margin-left: 2rem;
 
@@ -226,6 +226,23 @@ body {
   height: 29rem;
   background-size: contain;
   background-image: url(http://ddragon.leagueoflegends.com/cdn/8.9.1/img/profileicon/588.png);
+}
+
+.ui.modal > .content {
+  background-color: #010a13 !important;
+}
+
+.ui.modal > .actions {
+  background-color: #010a13 !important;
+  border-top: 0 !important;
+}
+
+.ui.modal > * {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom: 0 !important;
 }
 
 /* .champion-grid > .row:first-child {

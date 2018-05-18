@@ -5,8 +5,7 @@ import Home from './components/home';
 import Game from './components/game';
 import Profile from './components/profile';
 import Settings from './components/settings';
-import NavButtons from './components/navButtons'
-import axios from 'axios'
+import NavButtons from './components/navButtons';
 
 import 'semantic-ui-css/semantic.min.css';
 import './css/scss/App.scss';
@@ -79,6 +78,7 @@ class App extends Component {
           <Route 
             exact path="/"
             render={() => {
+              this.setState({activeButton: '/profile'});
               //if (this.state.profileData) {
                 return <Redirect to="/profile"/>
               //}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Header, Input, Card, Image } from 'semantic-ui-react'
+import { Header, Input, Card, Image, Loader } from 'semantic-ui-react'
 import Search from './search/search';
 import ReactPlayer from 'react-player'
 
@@ -129,6 +129,7 @@ class Profile extends Component {
                     //     <source src={require('../videos/zuccd.webm')} type="video/webm" />
                     // </video>
                     <ReactPlayer
+                        muted
                         playing={true}
                         height='100%'
                         width='100%'                     
@@ -197,8 +198,7 @@ class Profile extends Component {
                             }}>                            
                             {this.props.profileData.name}
                         </Header.Subheader> */}
-                    </div>
-                    }
+                    </div>}                                   
 
                     <div 
                         style={{
@@ -210,9 +210,22 @@ class Profile extends Component {
                         className="container" id="lookupDiv"
                         >
 
-
+                        {this.state.fetchingSummoner &&
+                        <Loader 
+                            style={{
+                                position: 'absolute',
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                                width: '100%'
+                            }}
+                            active 
+                            size="massive" 
+                            inline='centered' />}
+                                            
                         <p 
-                            style={{opacity: this.props.profileData == null ? '1' : '0'}}                             
+                            style={{
+                                opacity: (!this.props.profileData && !this.state.fetchingSummoner) ? '1' : '0'
+                            }}                             
                             id="lookupTitleText">Get the highest winrate builds.
                         </p>
 

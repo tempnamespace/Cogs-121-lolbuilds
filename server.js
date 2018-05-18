@@ -74,7 +74,7 @@ if (cluster.isMaster) {
       .gettingPositionsForSummonerId(accountId, 'na1')
       .then(data => {
         'use strict';
-        console.log(data);
+        //console.log(data);
         res.set('Content-Type', 'application/json');
         return res.send(JSON.stringify(data));
       })
@@ -107,13 +107,13 @@ if (cluster.isMaster) {
   app.get('/runes', function(req, res) {
 
     let championId = Math.floor(Math.random() * 100) + 1;
-    console.log(championId);
+    //console.log(championId);
     instance.get(`/champions/${championId}`)
       .then(response => {
         //console.log(res.data);
 
         let data = response.data.data[0].stats.runes.build;
-        console.log(data);
+        //console.log(data);
 
         let runeImgUrls = {};
         runeImgUrls = data.map(id => {

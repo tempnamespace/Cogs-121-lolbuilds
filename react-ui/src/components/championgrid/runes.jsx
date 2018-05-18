@@ -29,40 +29,66 @@ class Runes extends Component {
                 return res.json();
             })
             .then(json => {               
-                this.setState({ runePage: json });
-                //console.log(this.state.runePage);
-                this.setState({ loading: false });
+                this.setState({runePage: json, loading: false});
+                console.log(this.state.runePage);
             })
             .catch((error) => {
                 console.log(error);
-                this.setState({ loading: false });
+                this.setState({loading: false});
             });
     }
 
     render() {
+
+        const {runePage} = this.state;
+
         return (
             <Modal
                 open={this.state.modalOpen}
                 size='small'
                 style={{margin: "auto", marginTop: "0px !important"}}>
 
-                <Header content={this.props.champion} />
+                <Header 
+                    size="large" 
+                    style={{
+                        fontFamily: "Legendary",
+                        color: 'white', 
+                        backgroundColor: "#010a13"
+                    }} 
+                    content={this.props.champion}
+                />
                 <Modal.Content>
-                    {this.state.runePage == null ? null : (
-                        <div>
-                            {this.state.runePage.map((rune) =>     
-                                <Image 
-                                    centered={true}
-                                    key={rune}
-                                    src={`http://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`} 
-                                />
-                            )}
+                    {runePage == null ? null : (
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-around',
+                                backgroundColor: "#010a13"
+                            }}>
+                            <div>
+                                {runePage.filter(rune => runePage.indexOf(rune) < 5).map((rune, i) =>     
+                                    <Image 
+                                        centered={true}
+                                        key={i}
+                                        src={`http://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`} 
+                                    />
+                                )}
+                            </div>
+                            <div>
+                                {runePage.filter(rune => runePage.indexOf(rune) >= 5).map((rune, i) => 
+                                    <Image 
+                                        centered={true}
+                                        key={i}
+                                        src={`http://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`} 
+                                    />
+                                )}
+                            </div>
                         </div>
  
                     )}
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button color='green' onClick={() => {this.props.close()}} inverted>
+                    <Button onClick={() => {this.props.close()}} inverted>
                         <Icon name='checkmark' /> OK
                     </Button>
                 </Modal.Actions>                
