@@ -4,6 +4,8 @@ import champions from './champions';
 import { Grid, Image, Header } from 'semantic-ui-react';
 import Runes from './runes';
 
+import randomImg from '../../images/Random.png';
+
 class ChampionGrid extends Component {
     constructor(props) {
         super(props);
@@ -51,7 +53,7 @@ class ChampionGrid extends Component {
                         <Image 
                             key={champion}
                             style={champion !== 'Random' ? {cursor: 'pointer'} : null}
-                            src={champion === 'Random' ? require('../../images/Random.png') 
+                            src={champion === 'Random' ? randomImg 
                                 : `http://ddragon.leagueoflegends.com/cdn/8.9.1/img/champion/${champion}.png`} 
                             onClick={handleClick(champion)}
                         />
