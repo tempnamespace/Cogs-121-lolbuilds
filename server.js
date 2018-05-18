@@ -29,6 +29,8 @@ if (cluster.isMaster) {
 
 } else { */
   const app = express();
+  const defaultRunes = [ 8100, 8112, 8143, 8138, 8105, 8200, 8243, 8210 ];
+  const defaultBuild = [ 3285, 3020, 3165, 3089, 3157, 3135 ];
 
   // Priority serve any static files.
   app.use(express.static(path.resolve(__dirname, './react-ui/build')));
@@ -105,15 +107,14 @@ if (cluster.isMaster) {
   });
 
   app.get('/runes', function(req, res) {
-
     let championId = Math.floor(Math.random() * 100) + 1;
-    //console.log(championId);
+    console.log(championId);
     instance.get(`/champions/${championId}`)
       .then(response => {
         //console.log(res.data);
 
         let data = response.data.data[0].stats.runes.build;
-        //console.log(data);
+        console.log(data);
 
         let runeImgUrls = {};
         runeImgUrls = data.map(id => {
@@ -121,6 +122,32 @@ if (cluster.isMaster) {
         })
         
         return res.send(JSON.stringify(runeImgUrls));
+      })
+      .catch(err => {
+        console.log("Issue with champion_id, try again!");
+        let defaultRuneImgUrls = {};
+        defaultRuneImgUrls = data.map(id => {
+            return runeDictionary[id];
+        })
+        return res.send(JSON.stringify(defaultRuneImgUrls));
+      });
+  });
+
+    app.get('/build', function(req, res) {
+    //let championId = req.query.summonerId;
+    let championId = Math.floor(Math.random() * 100) + 1;
+    console.log(championId);
+    instance.get(`/champions/${championId}`)
+      .then(response => {
+
+        let data = response.data.data[0].stats.big_item_builds.build;
+        console.log(data);
+        
+        return res.send(JSON.stringify(data));
+      })
+      .catch(err => {
+        console.log("Issue with champion_id, try again!");
+         return res.send(JSON.stringify(defaultBuild));
       });
   });
 

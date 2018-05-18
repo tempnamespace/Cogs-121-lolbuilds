@@ -11,7 +11,7 @@ class Runes extends Component {
         this.state = {
             runePage: null,
             modalOpen: true,
-            loading: false
+            loading: false,
         };
     }
 
@@ -28,13 +28,12 @@ class Runes extends Component {
             .then(res => {
                 return res.json();
             })
-            .then(json => {               
+            .then(json => {       
                 this.setState({runePage: json, loading: false});
                 console.log(this.state.runePage);
             })
             .catch((error) => {
-                console.log(error);
-                this.setState({loading: false});
+                this.setState({loading: false});         
             });
     }
 
@@ -84,7 +83,6 @@ class Runes extends Component {
                                 )}
                             </div>
                         </div>
- 
                     )}
                 </Modal.Content>
                 <Modal.Actions>
