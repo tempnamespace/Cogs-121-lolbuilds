@@ -1,4 +1,4 @@
- import React, { Component } from 'react';
+import React, { Component } from 'react';
 
 import { Container, Header, Input, Card, Image } from 'semantic-ui-react'
 
