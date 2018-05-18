@@ -126,7 +126,7 @@ if (cluster.isMaster) {
       .catch(err => {
         console.log("Issue with champion_id, try again!");
         let defaultRuneImgUrls = {};
-        defaultRuneImgUrls = data.map(id => {
+        defaultRuneImgUrls = defaultRunes.map(id => {
             return runeDictionary[id];
         })
         return res.send(JSON.stringify(defaultRuneImgUrls));
