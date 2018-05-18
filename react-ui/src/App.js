@@ -6,8 +6,8 @@ import Settings from './components/settings';
 import { Route, Switch, Redirect } from 'react-router';
 import NavButtons from './components/navButtons'
 
-import './App.css';
 import 'semantic-ui-css/semantic.min.css';
+import './App.css';
 
 class App extends Component {
   constructor(props) {
@@ -52,7 +52,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">          
-          <h2>League of Legends Builds</h2>
+          <h2>LeagueBuilds</h2>
           <NavButtons updateButton={this.updateNavButton} active={this.state.activeButton}/>
         </div>
         <Switch>
