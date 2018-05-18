@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Modal, Header, Button, Icon, Container, Image, Text } from 'semantic-ui-react';
+import { Modal, Header, Button, Icon, Container, Image } from 'semantic-ui-react';
 
 //https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/SummonAery/SummonAery.png
 
