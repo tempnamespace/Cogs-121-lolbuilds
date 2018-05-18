@@ -233,7 +233,68 @@ class Profile extends Component {
 
                     </div>
                 </div>
-
+                    {this.props.profileData && !this.state.fetchingSummoner &&
+                        <Card centered={true}
+                            style={{
+                                background: 'none',
+                                border: 'none'
+                            }}>
+                            <Card.Content >
+                                {this.props.profileData[0] == null ? null : (
+                                    <div>
+                                        {this.props.profileData[0].queueType == null ? 
+                                            (<div>
+                                                Unranked Solo Queue
+                                                <img src={require('../images/provisional.png')}/>
+                                                <hr/>
+                                            </div>) : (
+                                            <div>
+                                                <p> 
+                                                    {this.props.profileData[0].queueType} <br/>
+                                                    {this.props.profileData[0].leagueName} <br/>
+                                                    {this.props.profileData[0].tier}: {this.props.profileData[0].rank}
+                                                </p>
+                                                <img src={require(`../images/${this.props.profileData[0].tierRankPhotoKey}`)}/>
+                                                <hr/>
+                                            </div>
+                                        )}
+                                        {this.props.profileData[1].queueType == null ? 
+                                            (<div>
+                                                Unranked Flex Queue
+                                                <img src={require('../images/provisional.png')}/>
+                                                <hr/>
+                                            </div>) : (
+                                            <div>
+                                                <p> 
+                                                    {this.props.profileData[1].queueType} <br/>
+                                                    {this.props.profileData[1].leagueName} <br/>
+                                                    {this.props.profileData[1].tier}: {this.props.profileData[1].rank}
+                                                </p>
+                                                <img src={require(`../images/${this.props.profileData[1].tierRankPhotoKey}`)}/>
+                                                <hr/>
+                                            </div>
+                                        )}
+                                        {this.props.profileData[2].queueType == null ? 
+                                            (<div>
+                                                Unranked Twisted Treeline
+                                                <img src={require('../images/provisional.png')}/>
+                                                <hr/>
+                                            </div>) : (
+                                            <div>
+                                                <p> 
+                                                    {this.props.profileData[2].queueType} <br/>
+                                                    {this.props.profileData[2].leagueName} <br/>
+                                                    {this.props.profileData[2].tier}: {this.props.profileData[2].rank}
+                                                </p>
+                                                <img src={require(`../images/${this.props.profileData[2].tierRankPhotoKey}`)}/>
+                                                <hr/>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}                        
+                            </Card.Content>
+                        </Card> 
+                    }
                 {/* <div style={{
                     display: 'flex', 
                     alignItems: 'center', 
