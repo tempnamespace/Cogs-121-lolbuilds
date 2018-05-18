@@ -82,7 +82,8 @@ class App extends Component {
                 return <Redirect to="/profile"/>
               //}
 
-              return <Home />}}
+              //return <Home />
+            }}
            />
           <Route 
             exact path="/profile"
