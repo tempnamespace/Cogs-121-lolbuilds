@@ -36,11 +36,37 @@ class Profile extends Component {
                     //if a player is not ranked in all 3 ladders, need to erase
                     //and update json with {}. Otherwise will hold the ranked data
                     //of the previously searched summoner.
+                    let temp = rankJson.slice();
                     for(let i = 0; i < 3; i++)
                     {
                         if(rankJson[i] == null)
+                        {
                             rankJson[i] = {};
+                            temp[i] = {};
+                        }
+                        else
+                        {
+                            let tierRankName = temp[i].tier + "_" + temp[i].rank + ".png";
+                            tierRankName = tierRankName.toLowerCase();
+
+                            temp[i].tierRankPhotoKey= tierRankName;
+                            console.log(temp[i].tierRankPhotoKey);
+
+                            if(temp[i].queueType == "RANKED_SOLO_5x5")
+                            {
+                                rankJson[0] = temp[i];
+                            }
+                            else if(temp[i].queueType == "RANKED_FLEX_SR")
+                            {
+                                rankJson[1] = temp[i];
+                            }
+                            else
+                            {
+                                rankJson[2] = temp[i];
+                            }
+                        }
                     }
+
                     this.props.update(rankJson);
                     console.log(rankJson);
                 }) 
@@ -111,33 +137,51 @@ class Profile extends Component {
                         <Card.Content >
                             {this.props.profileData[0] == null ? null : (
                                 <div>
-                                    {this.props.profileData[0].queueType == null ? (<div>Unranked</div>) : (
+                                    {this.props.profileData[0].queueType == null ? 
+                                        (<div>
+                                            Unranked Solo Queue
+                                            <img src={require('../images/provisional.png')}/>
+                                            <hr/>
+                                        </div>) : (
                                         <div>
                                             <p> 
                                                 {this.props.profileData[0].queueType} <br/>
                                                 {this.props.profileData[0].leagueName} <br/>
                                                 {this.props.profileData[0].tier}: {this.props.profileData[0].rank}
                                             </p>
+                                            <img src={require(`../images/${this.props.profileData[0].tierRankPhotoKey}`)}/>
                                             <hr/>
                                         </div>
                                     )}
-                                    {this.props.profileData[1].queueType == null ? (<div>Unranked</div>) : (
+                                    {this.props.profileData[1].queueType == null ? 
+                                        (<div>
+                                            Unranked Flex Queue
+                                            <img src={require('../images/provisional.png')}/>
+                                            <hr/>
+                                        </div>) : (
                                         <div>
                                             <p> 
                                                 {this.props.profileData[1].queueType} <br/>
                                                 {this.props.profileData[1].leagueName} <br/>
                                                 {this.props.profileData[1].tier}: {this.props.profileData[1].rank}
                                             </p>
+                                            <img src={require(`../images/${this.props.profileData[0].tierRankPhotoKey}`)}/>
                                             <hr/>
                                         </div>
                                     )}
-                                    {this.props.profileData[2].queueType == null ? (<div>Unranked</div>) : (
+                                    {this.props.profileData[2].queueType == null ? 
+                                        (<div>
+                                            Unranked Twisted Treeline
+                                            <img src={require('../images/provisional.png')}/>
+                                            <hr/>
+                                        </div>) : (
                                         <div>
                                             <p> 
                                                 {this.props.profileData[2].queueType} <br/>
                                                 {this.props.profileData[2].leagueName} <br/>
                                                 {this.props.profileData[2].tier}: {this.props.profileData[2].rank}
                                             </p>
+                                            <img src={require(`../images/${this.props.profileData[0].tierRankPhotoKey}`)}/>
                                             <hr/>
                                         </div>
                                     )}
