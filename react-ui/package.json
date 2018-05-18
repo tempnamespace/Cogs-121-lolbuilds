@@ -3,7 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "autoprefixer": "^8.5.0",
     "cross-env": "^5.1.4",
+    "node-sass": "^4.9.0",
+    "nodemon": "^1.17.4",
+    "postcss-cli": "^5.0.0",
     "react-scripts": "^1.1.0"
   },
   "dependencies": {
@@ -23,7 +27,11 @@
     "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
     "build-map": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "scss": "node-sass --output-style compressed src/css/scss -o src/css",
+    "autoprefixer": "postcss -u autoprefixer -r src/css/*",
+    "build-css": "npm run scss && npm run autoprefixer",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\""
   },
   "proxy": "http://localhost:5000"
 }
