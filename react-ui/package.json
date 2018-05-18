@@ -64,10 +64,7 @@
     "build": "cross-env GENERATE_SOURCEMAP=false node scripts/build.js",
     "build-map": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
-    "scss": "node-sass --output-style compressed src/css/scss -o src/css",
-    "autoprefixer": "postcss -u autoprefixer -r src/css/*",
-    "build-css": "npm run scss && npm run autoprefixer",
-    "watch-css": "nodemon -e scss -x \"npm run build-css\""
+    "autoprefixer": "postcss -u autoprefixer -r src/css/*"
   },
   "proxy": "http://localhost:5000",
   "jest": {

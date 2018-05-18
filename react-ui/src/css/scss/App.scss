@@ -1,3 +1,6 @@
+
+
+// Import fonts
 @font-face {
   font-family: 'Legendary';
   src: url('../../fonts/Beaufort-Regular.ttf') format('truetype');
@@ -41,6 +44,15 @@
   font-weight: bold;
   font-style: italic;
 }
+
+// Setup variables
+$darkGold: rgba(199, 154, 60, 1);
+$lightGold: rgba(201, 170, 113, 1);
+$darkBlue: rgba(12, 118, 128, 1);
+$lightBlue: rgba(113, 181, 189, 1);
+$darkGrey: rgba(12, 12, 12, 1);
+
+// Actual CSS
 
 * {
   font-family: Legendary !important;
