@@ -7,7 +7,7 @@ import Profile from './components/profile';
 import Settings from './components/settings';
 import NavButtons from './components/navButtons'
 
-import './css/App.css';
+import './css/scss/App.scss';
 
 class App extends Component {
   constructor(props) {
@@ -77,9 +77,9 @@ class App extends Component {
           <Route 
             exact path="/"
             render={() => {
-              if (this.state.profileData) {
+              //if (this.state.profileData) {
                 return <Redirect to="/profile"/>
-              }
+              //}
 
               return <Home />}}
            />
