@@ -6,52 +6,45 @@ import Ellipsis from './ellipsis';
 import Clock from './clock';
 import Builds from './builds';
 
+const CHECK_RATE = 10000; 
+
 class Game extends Component {
     constructor(props) {
         super(props);
 
-        console.log(this.props);
-
         this.state = {
-            // loading: false,
-            summonerId: this.props.profileData ? this.props.profileData.id : null,
-            time: null
+
         };                      
     }
 
-    // componentWillReceiveProps() {
-    //     console.log("received new props, forcing rerender")
-    //     if (this.)
-    //     this.forceUpdate();
-    // }
-
+    // called when props change
     componentDidUpdate() {
-        // console.log("update called")
-        // console.log(this.props)
+        if (this.props.profileData) {  
+            clearInterval(this.checkInterval);
+            this.checkInterval = setInterval(() => this.check(), CHECK_RATE);
+            this.check()
+        }
     }
 
     componentWillMount() {
-
-        const CHECK_RATE = 10000; 
-
-        if (this.state.summonerId) {  
-            console.log("setting interval");     
+        if (this.props.profileData) {  
+            //console.log("setting interval");     
             this.checkInterval = setInterval(() => this.check(), CHECK_RATE);
             this.check()
         }
     }
 
     componentWillUnmount() {
-        console.log("clearing interval");
+        //console.log("clearing interval");
         clearInterval(this.checkInterval);
     }
 
     check() {
-        let id = this.state.summonerId;
-        if (!id) 
-            return clearInterval(this.checkInterval);
+        if (!this.props.profileData || !this.props.profileData.id) {
+            clearInterval(this.checkInterval);
+        }
 
-        this.getCurrentGameInfo(id);
+        this.getCurrentGameInfo(this.props.profileData.id);
     }    
 
     // requests the game info for the current summoner
@@ -63,21 +56,24 @@ class Game extends Component {
             return res.json();
         })
         .then(json => {
-            console.log(json);
+            //console.log(json);
             let gameStartTime = json.gameStartTime;
-            if (this.state.gameStartTime !== gameStartTime) {
-                this.setState({queueId: json.gameQueueConfigId, gameStartTime: gameStartTime});
+            if (this.props.gameData.gameStartTime !== gameStartTime) {
+                this.props.update({queueId: json.gameQueueConfigId, gameStartTime: gameStartTime});
             }         
         })
         .catch((error) => {
             console.log(error);
-            this.setState({gameStartTime: null});
+            this.props.update({gameStartTime: null});
         });
     }
 
     render() {
+        const {gameData, profileData} = this.props;
+        // console.log("gameStartTime: ", gameData);
+        // console.log("profileData: ", profileData);
 
-        const queueId = this.state.queueId;
+        const queueId = gameData != null ? gameData.queueId : null;
         let gameType;
 
         switch(queueId) {
@@ -96,31 +92,33 @@ class Game extends Component {
             default:
                 gameType = "In game";
         }
-
+   
         return (
-            <div className="App-game">                
-                {this.state.gameStartTime == null && <ChampionGrid />}
-                {this.props.profileData != null ? 
-                    this.state.gameStartTime ?                         
+            <div className="App-game">    
+                <br/>            
+                {gameData.gameStartTime == null && <ChampionGrid />}
+                {profileData != null ? 
+                    gameData.gameStartTime ?                         
                         <div>
-                            <p>{gameType}: <Clock gameStartTime={this.state.gameStartTime} /></p>
-                            <Builds summonerId={this.props.profileData.id} />
+                            <Header size="large">{profileData.name}</Header>
+                            <p>{gameType}: <Clock gameStartTime={gameData.gameStartTime} /></p>
+                            <Builds summonerId={profileData.id} />
                         </div>                    
                     : 
-                    <Header size='medium'>
-                        Checking if {this.props.profileData.name} is in game<Ellipsis rate={500}/>                         
-                    </Header>
+                        <Header size='medium'>
+                            Waiting for {profileData.name} to start a game<Ellipsis rate={500}/>                         
+                        </Header>
                 :                     
-                <div>                            
-                    <Header size='huge'>No Summoner Selected</Header>
-                    <Header.Subheader>
-                        Please choose a summoner on the <Link 
-                            to={'profile'}
-                            onClick={() => this.props.updateButton('/profile')}>
-                            Profile
-                        </Link> page  
-                    </Header.Subheader>
-                </div>}        
+                    <div>                            
+                        <Header size='huge'>No Summoner Selected</Header>
+                        <Header.Subheader>
+                            Please choose a summoner on the <Link 
+                                to={'profile'}
+                                onClick={() => this.props.updateButton('/profile')}>
+                                Profile
+                            </Link> page  
+                        </Header.Subheader>
+                    </div>}        
             </div>
         )
     }
