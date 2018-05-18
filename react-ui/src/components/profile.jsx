@@ -59,9 +59,9 @@ class Profile extends Component {
     render() {
         return (
             <div>
+                <br/>
                 <Container>
                     {/* <h3 style={{ paddingTop: '10px' }}>profile page</h3>                 */}
-                <br />
                 <div>
                     <Header style={{color: 'white'}} size='huge'>Profile</Header>
                 </div>
