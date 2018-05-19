@@ -9,7 +9,7 @@ const LeagueJs = require('leaguejs/lib/LeagueJS.js');
 const riotAPI = new LeagueJs(process.env.RIOT_API_KEY);
 
 const runeDictionary = {};
- 
+
 const instance = axios.create({
   baseURL: process.env.LEAGUE_STATS_API
 });
@@ -108,13 +108,10 @@ if (cluster.isMaster) {
 
   app.get('/runes', function(req, res) {
     let championId = Math.floor(Math.random() * 100) + 1;
-    console.log(championId);
+    //console.log(championId);
     instance.get(`/champions/${championId}`)
       .then(response => {
-        //console.log(res.data);
-
         let data = response.data.data[0].stats.runes.build;
-        console.log(data);
 
         let runeImgUrls = {};
         runeImgUrls = data.map(id => {
@@ -124,7 +121,8 @@ if (cluster.isMaster) {
         return res.send(JSON.stringify(runeImgUrls));
       })
       .catch(err => {
-        console.log("Issue with champion_id, try again!");
+        console.log(err)
+        console.log("RUNES: Issue with championId: ", championId);
         let defaultRuneImgUrls = {};
         defaultRuneImgUrls = defaultRunes.map(id => {
             return runeDictionary[id];
@@ -136,18 +134,18 @@ if (cluster.isMaster) {
     app.get('/build', function(req, res) {
     //let championId = req.query.summonerId;
     let championId = Math.floor(Math.random() * 100) + 1;
-    console.log(championId);
+    //console.log(championId);
     instance.get(`/champions/${championId}`)
       .then(response => {
 
         let data = response.data.data[0].stats.big_item_builds.build;
-        console.log(data);
+        //console.log(data);
         
         return res.send(JSON.stringify(data));
       })
       .catch(err => {
-        console.log("Issue with champion_id, try again!");
-         return res.send(JSON.stringify(defaultBuild));
+        console.log("BUILD: Issue with championId: ", championId);
+        return res.send(JSON.stringify(defaultBuild));
       });
   });
 

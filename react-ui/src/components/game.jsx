@@ -100,7 +100,7 @@ class Game extends Component {
                 {profileData != null ? 
                     gameData.gameStartTime ?                         
                         <div>
-                            <Header size="large">{profileData.name}</Header>
+                            <Header style={{color: 'white', fontFamily: 'Legendary'}} size="large">{profileData.name}</Header>
                             <p>{gameType}: <Clock gameStartTime={gameData.gameStartTime} /></p>
                             <Builds summonerId={profileData.id} />
                         </div>                    
