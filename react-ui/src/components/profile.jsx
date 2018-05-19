@@ -11,6 +11,8 @@ class Profile extends Component {
             fetchingSummoner: false,
             inputValue: '',
             bannerOpacity: 1,
+            bannerTransition: 'opacity 5s',
+            // topTransition: 
             renderAnimation: true
         };
     }
@@ -18,7 +20,7 @@ class Profile extends Component {
     componentDidMount() {
         if (this.props.profileData) {
             setTimeout(() => {
-                this.setState({bannerOpacity: 0})
+                this.setState({bannerTransition: 'opacity 5s', bannerOpacity: 0})
             }, 1400);
         }
     }
@@ -27,6 +29,10 @@ class Profile extends Component {
         console.log(this.props)
         if (this.props.profileData) {
             this.player.seekTo(0);
+            this.setState({bannerTransition: 'opacity 0s', bannerOpacity: 1})
+            setTimeout(() => {
+                this.setState({bannerTransition: 'opacity 5s', bannerOpacity: 0})
+            }, 1400);
         }
     }
 
@@ -118,7 +124,7 @@ class Profile extends Component {
             <div>
                 <div style={{display: 'flex', justifyContent: 'center', position: 'relative', top: '-42px'}}>
                 
-                    {this.props.profileData && this.state.renderAnimation &&
+                    {this.props.profileData &&
                     // <video style={{
                     //         position: 'absolute',
                     //         opacity: this.state.bannerOpacity,
@@ -135,9 +141,9 @@ class Profile extends Component {
                         width='100%'                     
                         style={{
                             position: 'absolute',
-                            opacity: 1,//this.state.bannerOpacity,
+                            opacity: this.state.bannerOpacity,
                             top: '4px',
-                            transition: 'opacity 1s'
+                            transition: this.state.bannerTransition
                         }}
                         autoPlay
                         url={require('../videos/zuccd.webm')}
@@ -152,8 +158,8 @@ class Profile extends Component {
                             height: '720px', 
                             display: 'flex', 
                             justifyContent: 'center',
-                            animation: 'fadeIn 1.2s',
-                            animationTimingFunction: 'cubic-bezier(1, 0, 1, 0)'
+                            animation: 'fadeIn 5s',
+                            animationTimingFunction: 'ease-in'//'cubic-bezier(1, 0, 1, 0)'
                         }}>                            
                         <video
                             playsInline muted={true} autoPlay loop>
@@ -169,7 +175,7 @@ class Profile extends Component {
                             width: '92x',
                             height: '92px',
                             top: '174px',
-                            animation: 'fadeIn 1.2s',
+                            animation: 'fadeIn 1s',
                             animationTimingFunction: 'cubic-bezier(1, 0, 1, 0)'
                         }}
                         //https://ddragon.leagueoflegends.com/api/versions.json
