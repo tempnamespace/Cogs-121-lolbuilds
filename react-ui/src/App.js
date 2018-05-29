@@ -63,6 +63,14 @@ class App extends Component {
     this.setState({gameData: newGame});
   }
 
+  clearProfile = () => {
+    this.setState({
+      profileData: null,
+      gameData: {}
+    })
+    localStorage.clear("profileData")
+  }
+
   render() {
     return (
       <div className="App">
@@ -88,19 +96,29 @@ class App extends Component {
               return <Profile update={this.updateProfile} profileData={this.state.profileData} />;
             }}
           />
-          <Route path="/ingame" 
+          <Route 
+            path="/ingame" 
             render={() => 
               <Game 
                 update={this.updateGame}
-                updateButton={this.updateNavButton} 
+                updateButton={this.updateNavButton}
                 profileData={this.state.profileData}
                 gameData={this.state.gameData} 
               />}
           />
-          <Route path="/analysis" 
-            render={() => <Analysis/>}
+          <Route 
+            path="/analysis" 
+            render={() => <Analysis profileData={this.state.profileData}/>}
           />
-          <Route path="/settings" component={Settings} />
+          <Route 
+            path="/settings"
+            render={() => 
+              <Settings 
+                profileData={this.state.profileData}
+                clearProfile={this.clearProfile}
+                updateButton={this.updateNavButton}
+              />}
+          />
         </Switch>
       </div>
     );
