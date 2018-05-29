@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router';
 
 import Home from './components/home';
 import Game from './components/game';
+import Analysis from './components/analysis'
 import Profile from './components/profile';
 import Settings from './components/settings';
 import NavButtons from './components/navButtons';
@@ -62,7 +63,6 @@ class App extends Component {
     this.setState({gameData: newGame});
   }
 
-  //updateParent={this.updateParent}
   render() {
     return (
       <div className="App">
@@ -79,11 +79,7 @@ class App extends Component {
             exact path="/"
             render={() => {
               this.setState({activeButton: '/profile'});
-              //if (this.state.profileData) {
-                return <Redirect to="/profile"/>
-              //}
-
-              //return <Home />
+              return <Redirect to="/profile"/>
             }}
            />
           <Route 
@@ -100,6 +96,9 @@ class App extends Component {
                 profileData={this.state.profileData}
                 gameData={this.state.gameData} 
               />}
+          />
+          <Route path="/analysis" 
+            render={() => <Analysis/>}
           />
           <Route path="/settings" component={Settings} />
         </Switch>

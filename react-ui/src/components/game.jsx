@@ -105,7 +105,7 @@ class Game extends Component {
                             <Builds summonerId={profileData.id} />
                         </div>                    
                     : 
-                        <Header size='medium' style={{color: 'white', fontStyle: 'Legendary'}}>
+                        <Header size='medium' style={{color: 'white', fontFamily: 'Roboto'}}>
                             Waiting for {profileData.name} to start a game<Ellipsis rate={500}/>                         
                         </Header>
                 :                     

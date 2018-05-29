@@ -10,6 +10,7 @@ class NavButtons extends Component {
       paths: { // route -> Page
         "/profile": "Profile",
         "/ingame": "Game",
+        "/analysis": "Analysis",
         "/settings": "Settings",
       }
     }
@@ -26,7 +27,8 @@ class NavButtons extends Component {
               to={key}                            
               onClick={(e) => {                
                 if (key !== this.props.active) {
-                  this.props.updateButton(key)
+                  if (!e.ctrlKey && !e.shiftKey)
+                    this.props.updateButton(key)
                 } else {
                   e.preventDefault();
                 }                               

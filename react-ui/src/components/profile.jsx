@@ -120,20 +120,48 @@ class Profile extends Component {
     }
 
     render() {
+
+        let profileData = this.props.profileData
+        let highestELO = {tier: null, rank: null, src: null}
+
+        const TIER_ENUM = Object.freeze({
+            "CHALLENGER": 7,
+            "MASTER": 6,
+            "DIAMOND": 5,
+            "PLATINUM": 4,
+            "GOLD": 3,
+            "SILVER": 2,
+            "BRONZE": 1
+        })
+        const RANK_ENUM = Object.freeze({
+            "V": 5,
+            "IV": 4,
+            "III": 3,
+            "II": 2,
+            "I": 1
+        })
+        
+        if (profileData) {
+            for (let i = 0; i < 3; i++) {
+                let tier = profileData[i].tier;
+                let rank = profileData[i].rank;
+                if (tier && (highestELO.tier == null || TIER_ENUM[tier] > TIER_ENUM[highestELO.tier])) {
+                    highestELO.tier = tier;
+                    highestELO.rank = rank;
+                    highestELO.src = profileData[i].tierRankPhotoKey;
+                }
+                if (tier && TIER_ENUM[highestELO.tier] === TIER_ENUM[tier] && RANK_ENUM[rank] > RANK_ENUM[highestELO.rank]) {
+                    highestELO.rank = rank;
+                    highestELO.src = profileData[i].tierRankPhotoKey;
+                }
+            }
+        }
+        
+
         return (
             <div>
-                <div style={{display: 'flex', justifyContent: 'center', position: 'relative', top: '-42px'}}>
-                
+                <div style={{display: 'flex', justifyContent: 'center', position: 'relative', top: '-42px'}}>                
                     {this.props.profileData &&
-                    // <video style={{
-                    //         position: 'absolute',
-                    //         opacity: this.state.bannerOpacity,
-                    //         top: '4px',
-                    //         transition: 'opacity 1s'
-                    //     }}
-                    //     playsInline muted={true} autoPlay>
-                    //     <source src={require('../videos/zuccd.webm')} type="video/webm" />
-                    // </video>
                     <ReactPlayer
                         muted
                         playing={true}
@@ -148,11 +176,7 @@ class Profile extends Component {
                         autoPlay
                         url={require('../videos/zuccd.webm')}
                         ref={this.ref}
-                    />
-                    
-                //|| console.log("rendered")
-            }
-
+                    />}
                     {this.props.profileData && !this.state.fetchingSummoner &&
                     <div style={{
                             height: '720px', 
@@ -195,15 +219,13 @@ class Profile extends Component {
                                 fontFamily: 'Legendary',
                                 color: 'white'
                             }}>                            
-                            {this.props.profileData.name}
+                            {this.props.profileData.name}                            
                         </Header>
-                        {/* <Header.Subheader
-                            style={{
-                                fontFamily: 'Legendary',
-                                color: 'white'
-                            }}>                            
-                            {this.props.profileData.name}
-                        </Header.Subheader> */}
+                        {highestELO.tier !== null &&
+                        <Image                             
+                            src={require(`../images/${highestELO.src}`)} 
+                            style={{width: '120px', top: '55px'}}
+                        />}
                     </div>}                                   
 
                     <div 
@@ -239,84 +261,6 @@ class Profile extends Component {
 
                     </div>
                 </div>
-                    {this.props.profileData && !this.state.fetchingSummoner &&
-                        <Card centered={true}
-                            style={{
-                                background: 'none',
-                                border: 'none'
-                            }}>
-                            <Card.Content >
-                                {this.props.profileData[0] == null ? null : (
-                                    <div>
-                                        {this.props.profileData[0].queueType == null ? 
-                                            (<div>
-                                                Unranked Solo Queue
-                                                <img src={require('../images/provisional.png')}/>
-                                                <hr/>
-                                            </div>) : (
-                                            <div>
-                                                <p> 
-                                                    {this.props.profileData[0].queueType} <br/>
-                                                    {this.props.profileData[0].leagueName} <br/>
-                                                    {this.props.profileData[0].tier}: {this.props.profileData[0].rank}
-                                                </p>
-                                                <img src={require(`../images/${this.props.profileData[0].tierRankPhotoKey}`)}/>
-                                                <hr/>
-                                            </div>
-                                        )}
-                                        {this.props.profileData[1].queueType == null ? 
-                                            (<div>
-                                                Unranked Flex Queue
-                                                <img src={require('../images/provisional.png')}/>
-                                                <hr/>
-                                            </div>) : (
-                                            <div>
-                                                <p> 
-                                                    {this.props.profileData[1].queueType} <br/>
-                                                    {this.props.profileData[1].leagueName} <br/>
-                                                    {this.props.profileData[1].tier}: {this.props.profileData[1].rank}
-                                                </p>
-                                                <img src={require(`../images/${this.props.profileData[1].tierRankPhotoKey}`)}/>
-                                                <hr/>
-                                            </div>
-                                        )}
-                                        {this.props.profileData[2].queueType == null ? 
-                                            (<div>
-                                                Unranked Twisted Treeline
-                                                <img src={require('../images/provisional.png')}/>
-                                                <hr/>
-                                            </div>) : (
-                                            <div>
-                                                <p> 
-                                                    {this.props.profileData[2].queueType} <br/>
-                                                    {this.props.profileData[2].leagueName} <br/>
-                                                    {this.props.profileData[2].tier}: {this.props.profileData[2].rank}
-                                                </p>
-                                                <img src={require(`../images/${this.props.profileData[2].tierRankPhotoKey}`)}/>
-                                                <hr/>
-                                            </div>
-                                        )}
-                                    </div>
-                                )}                        
-                            </Card.Content>
-                        </Card> 
-                    }
-                {/* <div style={{
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center', 
-                    height: '100%', 
-                    flexDirection: 'column',
-                    position: 'absolute',
-                    top: '0px',
-                    width: '100vw'
-                    }}>
-                    
-
-                    <div className="container" id="searchHistDiv">
-                        <p id="searchTitleText">Recent Searches</p> 
-                    </div>
-                </div> */}
             </div>
         );
     }

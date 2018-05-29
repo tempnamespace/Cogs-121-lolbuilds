@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import { Loader, Header } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
-class Settings extends Component {
+class Analysis extends Component {
     constructor(props) {
-      super(props);
-      this.state = {
-      };
+        super(props);
+        this.state = {};
     }
 
     render() {
@@ -12,11 +13,11 @@ class Settings extends Component {
             <div style={{fontFamily: "Roboto"}} className="container">
                 <br />
                 <div>
-                    Settings will go here...
+                    Analysis
                 </div>
             </div>
         )
     }
 }
 
-export default Settings;
+export default Analysis;
