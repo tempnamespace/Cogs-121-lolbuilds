@@ -6,10 +6,14 @@ const axios = require('axios');
 const PORT = process.env.PORT || 5000;
 
 const LeagueJs = require('leaguejs/lib/LeagueJS.js');
-const riotAPI = new LeagueJs(process.env.RIOT_API_KEY);
-
+const riotAPI = new LeagueJs(process.env.RIOT_API_KEY, {
+  caching: {
+    isEnabled: true, // enable basic caching
+    defaults: {stdTTL: 120} // add a TTL to all Endpoints you think is appropriate (you can tune it later per Endpoint)
+  }
+});
+// riotAPI.Spectator.disableCaching();
 const runeDictionary = {};
-
 const instance = axios.create({
   baseURL: process.env.LEAGUE_STATS_API
 });

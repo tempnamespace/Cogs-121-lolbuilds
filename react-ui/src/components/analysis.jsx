@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Loader } from 'semantic-ui-react';
 import { PieChart, Pie, Cell } from 'recharts';
+import 'abortcontroller-polyfill/dist/polyfill-patch-fetch'
 
 class Analysis extends Component {
     constructor(props) {
@@ -14,6 +15,7 @@ class Analysis extends Component {
 
         this.matchlist = [];
         this.matchCount = 0;
+        this.controller = new window.AbortController();
     }
 
     // TODO: persist matchlist between page swaps (until new profile lookup)
@@ -24,8 +26,15 @@ class Analysis extends Component {
             this.fetchMatches(this.props.profileData.accountId, this.state.numMatches);
     }
 
-    fetchMatch(gameId) {
+    componentWillUnmount() {
+        this.controller.abort();
+    }
+    
+
+    fetchMatch(gameId) {  
+        const signal = this.controller.signal;      
         fetch(`/match?gameId=${gameId}`, {
+            signal,
             method: "GET"
         })
         .then(matchResponse => {
@@ -40,7 +49,10 @@ class Analysis extends Component {
             }
         })
         .catch((error) => {
-            console.log(error);
+            if (error.name === 'AbortError') {
+                return;
+            }
+            console.error(error);
         });
     }
 
