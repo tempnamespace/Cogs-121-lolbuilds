@@ -52,7 +52,7 @@ class Profile extends Component {
 
     fetchSummoner = (summoner) => {
         this.setState({ fetchingSummoner: true });
-        fetch(`/profile?summoner=${encodeURIComponent(summoner)}`, {
+        fetch(`/profiledata?summoner=${encodeURIComponent(summoner)}`, {
             method: "GET"
         })
             .then(response => {

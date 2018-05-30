@@ -55,7 +55,7 @@ if (cluster.isMaster) {
     });
 
 
-  app.get('/profile', function (req, res) {
+  app.get('/profiledata', function (req, res) {
     let summoner = req.query.summoner;
     //console.log(summoner);
     riotAPI.Summoner
