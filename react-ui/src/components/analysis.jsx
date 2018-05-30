@@ -11,6 +11,9 @@ class Analysis extends Component {
             numMatches: 10,
             matchlist: [],
         };
+
+        this.matchlist = [];
+        this.matchCount = 0;
     }
 
     // TODO: persist matchlist between page swaps (until new profile lookup)
@@ -19,6 +22,26 @@ class Analysis extends Component {
         // Retrieve data
         if (this.props.profileData)
             this.fetchMatches(this.props.profileData.accountId, this.state.numMatches);
+    }
+
+    fetchMatch(gameId) {
+        fetch(`/match?gameId=${gameId}`, {
+            method: "GET"
+        })
+        .then(matchResponse => {
+            return matchResponse.json();
+        })
+        .then(matchJson => {
+            this.matchlist.push(matchJson);
+            this.matchCount--;
+            // last match to be added            
+            if (this.matchCount === 0) {
+                this.setState({ matchlist: this.matchlist, fetchingMatchlists: false });
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     }
 
     fetchMatches(accountId, numMatches) {
@@ -31,31 +54,12 @@ class Analysis extends Component {
         })
         .then(myJson => {
             // myJson.matches is array of Objects with gameId
-            let matchlist = [];
-            let matchCount = 0;
-
-            for (let i = 0; i < myJson.matches.length; i++)
-            {
-                const gameId = myJson.matches[i].gameId;
-
-                fetch(`/match?gameId=${gameId}`, {
-                    method: "GET"
-                })
-                .then(matchResponse => {
-                    return matchResponse.json();
-                })
-                .then(matchJson => {
-                    matchlist.push(matchJson);
-                    matchCount++;
-
-                    if (matchCount >= this.state.numMatches) {
-                        this.setState({ matchlist: matchlist });
-                        this.setState({ fetchingMatchlists: false });
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+            this.matchlist = [];
+            this.matchCount = numMatches;
+            for (let i = 0; i < myJson.matches.length; i++) {
+                const gameId = myJson.matches[i].gameId;                  
+                // retrieve match information for this game
+                this.fetchMatch(gameId);
             }
         })
         .catch((error) => {
@@ -81,7 +85,7 @@ class Analysis extends Component {
             for (let j = 0; j < match.participantIdentities.length; j++)
             {
                 let currPart = match.participantIdentities[j];
-                if (currPart.player.accountId == this.props.profileData.accountId)
+                if (currPart.player.accountId === this.props.profileData.accountId)
                     partId = currPart.participantId;
             }
 
@@ -90,7 +94,7 @@ class Analysis extends Component {
             {
                 let currPart = match.participants[k];
 
-                if (currPart.participantId == partId)
+                if (currPart.participantId === partId)
                 {
                     let currRole = currPart.timeline.role;
                     let currLane = currPart.timeline.lane;
@@ -103,7 +107,7 @@ class Analysis extends Component {
                 }
             }
 
-            if (i == match.participants.length - 1)
+            if (i === match.participants.length - 1)
             {
                 let roleCount = {
                     'top': lane["TOP"] ? lane["TOP"] : 0,
