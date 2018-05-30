@@ -144,7 +144,7 @@ class Analysis extends Component {
                 <br />
                 {this.props.profileData ? 
                 <div>
-                    <div>Analysis for {this.props.profileData.name}</div>
+                    <p id="dataTitle">Analysis for {this.props.profileData.name}</p>
 
                     {(this.state.fetchingMatchlists) &&
                         <Loader 
@@ -160,15 +160,20 @@ class Analysis extends Component {
                     }
 
                     {!(this.state.fetchingMatchlists) && this.roleCount &&
-                        <PieChart width={730} height={250}>
-                            <Pie data={this.roleCount} dataKey="value" cx="50%" cy="50%" outerRadius={80} label>
-                                {
-                                    this.roleCount.map((entry, index) => (
-                                        <Cell key={`cell-${index}`}/>
-                                    ))
-                                }
-                            </Pie>
-                        </PieChart>
+                        <div>
+                            <p id="dataSubtitle">Role Distribution for Last 10 Matches</p>
+                            <div class="chart-container">
+                                <PieChart width={250} height={250} class="chart">
+                                    <Pie data={this.roleCount} dataKey="value" cx="50%" cy="50%" outerRadius={80} label>
+                                        {
+                                            this.roleCount.map((entry, index) => (
+                                                <Cell key={`cell-${index}`}/>
+                                            ))
+                                        }
+                                    </Pie>
+                                </PieChart>
+                            </div>
+                        </div>
                     }
 
                 </div>
