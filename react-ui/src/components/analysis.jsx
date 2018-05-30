@@ -174,16 +174,16 @@ class Analysis extends Component {
                     {!(this.state.fetchingMatchlists) && this.roleCount &&
                         <div>
                             <p id="dataSubtitle">Role Distribution for Last 10 Matches</p>
-                            <div class="chart-container">
+                            <div className="chart-container">
                                 <PieChart width={250} height={250} class="chart">
-                                    <Pie data={this.roleCount} dataKey="value" cx="50%" cy="50%" outerRadius={80} label>
+                                    <Pie data={this.roleCount} dataKey="value" cx="50%" cy="50%" outerRadius={80} fill="#71b5bd" stroke="#010a13" label>
                                         {
                                             this.roleCount.map((entry, index) => (
                                                 <Cell key={`cell-${index}`}/>
                                             ))
                                         }
                                     </Pie>
-                                    <Tooltip />
+                                    <Tooltip itemStyle={{color: "#c9aa71", padding: "1rem"}} wrapperStyle={{"background": "#010a13", "borderColor": "#c9aa71"}}/>
                                 </PieChart>
                             </div>
                         </div>
