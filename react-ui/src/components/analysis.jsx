@@ -69,7 +69,7 @@ class Analysis extends Component {
     }
 
     analyzeRoles(matchlist) {
-        console.log(matchlist);
+        // console.log(matchlist);
 
         // Roles are: DUO_CARRY, DUO_SUPPORT, DUO, SOLO, NONE
         let role = {};
@@ -107,15 +107,15 @@ class Analysis extends Component {
                 }
             }
 
-            if (i === match.participants.length - 1)
+            if (i === matchlist.length - 1)
             {
-                let roleCount = {
-                    'top': lane["TOP"] ? lane["TOP"] : 0,
-                    'jungle': lane["JUNGLE"] ? lane["JUNGLE"] : 0,
-                    'middle': lane["MIDDLE"] ? lane["MIDDLE"] : 0,
-                    'bottom': role["DUO_CARRY"] ? role["DUO_CARRY"] : 0,
-                    'support': role["DUO_SUPPORT"] ? role["DUO_SUPPORT"] : 0
-                }
+                let roleCount = [
+                    {name: 'top', value: lane["TOP"] ? lane["TOP"] : 0},
+                    {name: 'jungle', value: lane["JUNGLE"] ? lane["JUNGLE"] : 0},
+                    {name: 'middle', value: lane["MIDDLE"] ? lane["MIDDLE"] : 0},
+                    {name: 'bottom', value: role["DUO_CARRY"] ? role["DUO_CARRY"] : 0},
+                    {name: 'support', value: role["DUO_SUPPORT"] ? role["DUO_SUPPORT"] : 0}
+                ]
 
                 console.log(roleCount);
             }
@@ -146,7 +146,7 @@ class Analysis extends Component {
                 <div>
                     <div>Analysis for {this.props.profileData.name}</div>
 
-                    {(this.state.fetchingMatchlists || this.state.analyzingData) &&
+                    {(this.state.fetchingMatchlists) &&
                         <Loader 
                             style={{
                                 marginTop: '3rem',
@@ -159,7 +159,7 @@ class Analysis extends Component {
                             inline='centered' />
                     }
 
-                    {!(this.state.fetchingMatchlists || this.state.analyzingData) &&
+                    {!(this.state.fetchingMatchlists) && this.roleCount &&
                         <PieChart width={730} height={250}>
                             <Pie data={this.roleCount} dataKey="value" cx="50%" cy="50%" outerRadius={80} label>
                                 {
