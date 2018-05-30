@@ -13,13 +13,12 @@ class Game extends Component {
         super(props);
 
         this.state = {
-            activeGame : null,
             currChampionId: null
         };                    
     }
 
     // called when props change
-    componentDidUpdate() {
+    componentWillReceiveProps() {
         if (this.props.profileData) {  
             clearInterval(this.checkInterval);
             this.checkInterval = setInterval(() => this.check(), CHECK_RATE);
@@ -29,14 +28,15 @@ class Game extends Component {
 
     componentWillMount() {
         if (this.props.profileData) {  
-            //console.log("setting interval");     
+            console.log("setting interval");   
+            clearInterval(this.checkInterval);  
             this.checkInterval = setInterval(() => this.check(), CHECK_RATE);
             this.check()
         }
     }
 
     componentWillUnmount() {
-        //console.log("clearing interval");
+        console.log("unmount: clearing interval");
         clearInterval(this.checkInterval);
     }
 
@@ -58,21 +58,24 @@ class Game extends Component {
         })
         .then(json => {
             //console.log("active game data:")
-            //console.log(json);
-            this.state.activeGame = json;
+            //console.log(json);            
             let gameStartTime = json.gameStartTime;
             if (this.props.gameData.gameStartTime !== gameStartTime) {
+                console.log("updating")
                 this.props.update({queueId: json.gameQueueConfigId, gameStartTime: gameStartTime});
             }
 
             const participants = json.participants;
-            for(let i = 0; i < participants.length; i++)
-            {
-                if(participants[i].summonerId == summonerId)
-                {
-                    this.state.currChampionId = participants[i].championId;
-                    this.forceUpdate();
-                    //console.log(this.state.currChampionId)
+            
+            if (!participants) {
+                console.log("no active game")
+                return;
+            }                
+
+            for (let i = 0; i < participants.length; i++) {
+                if (participants[i].summonerId === summonerId) {
+                    this.setState({currChampionId: participants[i].championId});
+                    break;
                 }
             }
         })
