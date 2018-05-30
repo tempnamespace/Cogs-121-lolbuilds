@@ -86,7 +86,7 @@ class App extends Component {
           <Route 
             exact path="/"
             render={() => {
-              this.setState({activeButton: '/profile'});
+              setTimeout(() => {this.setState({activeButton: '/profile'})}, 1);
               return <Redirect to="/profile"/>
             }}
            />
