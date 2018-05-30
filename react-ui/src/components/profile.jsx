@@ -259,6 +259,13 @@ class Profile extends Component {
 
                         <Search action={this.fetchSummoner}/>
 
+                        <p 
+                            style={{
+                                opacity: (!this.props.profileData && !this.state.fetchingSummoner) ? '1' : '0'
+                            }}                             
+                            id="lookupTitleSubtext">Try it out. It won't hurt!
+                        </p>
+
                     </div>
                 </div>
             </div>

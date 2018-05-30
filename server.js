@@ -158,7 +158,7 @@ if (cluster.isMaster) {
       .gettingListByAccount(accountId, 'na1', options)
       .then(data => {
         'use strict';
-        console.log(data)
+        //console.log(data)
         res.set('Content-Type', 'application/json');
         return res.send(JSON.stringify(data));
       })
@@ -177,7 +177,7 @@ if (cluster.isMaster) {
       .gettingById(gameId, 'na1', options)
       .then(data => {
         'use strict';
-        console.log(data)
+        //console.log(data)
         res.set('Content-Type', 'application/json');
         return res.send(JSON.stringify(data));
       })
