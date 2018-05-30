@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Loader } from 'semantic-ui-react';
-import { PieChart, Pie, Cell } from 'recharts';
+import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import 'abortcontroller-polyfill/dist/polyfill-patch-fetch'
 
 class Analysis extends Component {
@@ -180,6 +180,7 @@ class Analysis extends Component {
                                     ))
                                 }
                             </Pie>
+                            <Tooltip/>
                         </PieChart>
                     }
 
