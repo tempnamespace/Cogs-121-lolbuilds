@@ -10,28 +10,23 @@ class Profile extends Component {
         this.state = {
             fetchingSummoner: false,
             inputValue: '',
-            bannerOpacity: 1,
-            bannerTransition: 'opacity 5s',
             // topTransition: 
             renderAnimation: true
         };
-    }
 
-    componentDidMount() {
-        if (this.props.profileData) {
-            setTimeout(() => {
-                this.setState({bannerTransition: 'opacity 5s', bannerOpacity: 0})
-            }, 1400);
-        }
-    }
+        this.bannerOpacity = 1;
+        this.bannerTransition = 'opacity 5s';
+    }    
 
     componentWillReceiveProps() {
         console.log(this.props)
         if (this.props.profileData) {
             this.player.seekTo(0);
-            this.setState({bannerTransition: 'opacity 0s', bannerOpacity: 1})
+            this.bannerOpacity = 1;
+            this.bannerTransition =  'opacity 0s';
             setTimeout(() => {
-                this.setState({bannerTransition: 'opacity 5s', bannerOpacity: 0})
+                this.bannerTransition = 'opacity 5s';
+                this.bannerOpacity = 0;
             }, 1400);
         }
     }
@@ -49,10 +44,6 @@ class Profile extends Component {
                 return response.json()
             })
             .then(myJson => {
-                //console.log(myJson)
-                //this.setState({fetchingSummoner: false, bannerOpacity: 1});
-                //this.props.update(myJson);
-
                 let accountId = myJson.id;
                 //use extracted summoner id to get ranked information
                 fetch(`/rankhistory?accountId=${accountId}`, {
@@ -120,6 +111,14 @@ class Profile extends Component {
     }
 
     render() {
+        
+        setTimeout(() => {
+            if (this.bannerOpacity === 0)
+                return;
+            this.bannerTransition = 'opacity 5s';
+            this.bannerOpacity =  0;
+            this.forceUpdate();
+        }, 1400);
 
         let profileData = this.props.profileData
         let highestELO = {tier: null, rank: null, src: null}
@@ -169,9 +168,9 @@ class Profile extends Component {
                         width='100%'                     
                         style={{
                             position: 'absolute',
-                            opacity: this.state.bannerOpacity,
+                            opacity: this.bannerOpacity,
                             top: '4px',
-                            transition: this.state.bannerTransition
+                            transition: this.bannerTransition
                         }}
                         autoPlay
                         url={require('../videos/zuccd.webm')}

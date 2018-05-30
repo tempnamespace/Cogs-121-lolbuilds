@@ -108,7 +108,11 @@ class App extends Component {
           />
           <Route 
             path="/analysis" 
-            render={() => <Analysis profileData={this.state.profileData}/>}
+            render={() => 
+              <Analysis 
+                profileData={this.state.profileData}
+                updateButton={this.updateNavButton}
+              />}
           />
           <Route 
             path="/settings"

@@ -20,6 +20,13 @@ class Analysis extends Component {
 
     // TODO: persist matchlist between page swaps (until new profile lookup)
 
+    componentWillReceiveProps() {
+        console.log(this.props)
+        if (this.props.profileData)
+            this.fetchMatches(this.props.profileData.accountId, this.state.numMatches);
+        // this.forceUpdate();
+    }
+
     componentDidMount() {
         // Retrieve data
         if (this.props.profileData)
@@ -80,76 +87,61 @@ class Analysis extends Component {
         });
     }
 
+    // given matchlist, returns formatted chart data array
     analyzeRoles(matchlist) {
-        // console.log(matchlist);
-
         // Roles are: DUO_CARRY, DUO_SUPPORT, DUO, SOLO, NONE
         let role = {};
         // Lanes are: TOP, JUNGLE, MIDDLE, BOTTOM, NONE
         let lane = {};
 
-        for (let i = 0; i < matchlist.length; i++)
-        {
+        for (let i = 0; i < matchlist.length; i++) {
             const match = matchlist[i];
             let partId;
 
             // Find account participant ID
-            for (let j = 0; j < match.participantIdentities.length; j++)
-            {
+            for (let j = 0; j < match.participantIdentities.length; j++) {
                 let currPart = match.participantIdentities[j];
-                if (currPart.player.accountId === this.props.profileData.accountId)
+                if (currPart.player.accountId === this.props.profileData.accountId) {
                     partId = currPart.participantId;
-            }
-
-            // Get participant data
-            for (let k = 0; k < match.participants.length; k++)
-            {
-                let currPart = match.participants[k];
-
-                if (currPart.participantId === partId)
-                {
-                    let currRole = currPart.timeline.role;
-                    let currLane = currPart.timeline.lane;
-
-                    if (currRole in role) role[currRole]++;
-                    else role[currRole] = 1;
-
-                    if (currLane in lane) lane[currLane]++;
-                    else lane[currLane] = 1;
+                    break;
                 }
             }
 
-            if (i === matchlist.length - 1)
-            {
-                let roleCount = [
-                    {name: 'top', value: lane["TOP"] ? lane["TOP"] : 0},
-                    {name: 'jungle', value: lane["JUNGLE"] ? lane["JUNGLE"] : 0},
-                    {name: 'middle', value: lane["MIDDLE"] ? lane["MIDDLE"] : 0},
-                    {name: 'bottom', value: role["DUO_CARRY"] ? role["DUO_CARRY"] : 0},
-                    {name: 'support', value: role["DUO_SUPPORT"] ? role["DUO_SUPPORT"] : 0}
-                ]
+            // Get participant data
+            for (let k = 0; k < match.participants.length; k++) {
+                let currPart = match.participants[k];
+                if (currPart.participantId === partId) {
+                    let currRole = currPart.timeline.role;
+                    let currLane = currPart.timeline.lane;
 
-                console.log(roleCount);
+                    // if currRole/Lane exists, add 1 game, else initialize
+                    currRole in role ? role[currRole]++ : role[currRole] = 1;
+                    currLane in lane ? lane[currLane]++ : lane[currLane] = 1;
+                }
             }
         }
+
+        let roleCount = [
+            {name: 'top', value: lane["TOP"] || 0},
+            {name: 'jungle', value: lane["JUNGLE"] || 0},
+            {name: 'middle', value: lane["MIDDLE"] || 0},
+            {name: 'bottom', value: role["DUO_CARRY"] || 0},
+            {name: 'support', value: role["DUO_SUPPORT"] || 0}
+        ]
+
+        for (let i = roleCount.length - 1; i >= 0; i--) {
+            if (roleCount[i].value === 0) {
+                roleCount.splice(i, 1);
+            }
+        }
+
+        return roleCount;
     }
 
     render() {
         console.log(this.props.profileData);
 
-        this.roleCount = [
-            {name: 'top', value: 1},
-            {name: 'jungle', value: 2},
-            {name: 'middle', value: 3},
-            {name: 'bottom', value: 0},
-            {name: 'support', value: 4},
-        ]
-
-        // Put all data analysis functions here
-        if (this.props.profileData && this.state.matchlist.length > 0)
-        {
-            this.analyzeRoles(this.state.matchlist);
-        }
+        const roleCount = this.analyzeRoles(this.state.matchlist);
 
         return (
             <div style={{ fontFamily: "Roboto" }} className="container">
@@ -171,14 +163,14 @@ class Analysis extends Component {
                             inline='centered' />
                     }
 
-                    {!(this.state.fetchingMatchlists) && this.roleCount &&
+                    {!(this.state.fetchingMatchlists) && roleCount &&
                         <div>
                             <p id="dataSubtitle">Role Distribution for Last 10 Matches</p>
-                            <div class="chart-container">
+                            <div className="chart-container">
                                 <PieChart width={250} height={250} class="chart">
-                                    <Pie data={this.roleCount} dataKey="value" cx="50%" cy="50%" outerRadius={80} label>
+                                    <Pie data={roleCount} dataKey="value" cx="50%" cy="50%" outerRadius={80} label>
                                         {
-                                            this.roleCount.map((entry, index) => (
+                                            roleCount.map((entry, index) => (
                                                 <Cell key={`cell-${index}`}/>
                                             ))
                                         }
