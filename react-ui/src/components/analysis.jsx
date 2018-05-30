@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Loader, Header } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { Loader } from 'semantic-ui-react';
+import { PieChart, Pie, Cell } from 'recharts';
 
 class Analysis extends Component {
     constructor(props) {
@@ -120,6 +121,14 @@ class Analysis extends Component {
     render() {
         console.log(this.props.profileData);
 
+        this.roleCount = [
+            {name: 'top', value: 1},
+            {name: 'jungle', value: 2},
+            {name: 'middle', value: 3},
+            {name: 'bottom', value: 0},
+            {name: 'support', value: 4},
+        ]
+
         // Put all data analysis functions here
         if (this.props.profileData && this.state.matchlist.length > 0)
         {
@@ -145,6 +154,19 @@ class Analysis extends Component {
                             size="massive" 
                             inline='centered' />
                     }
+
+                    {!(this.state.fetchingMatchlists || this.state.analyzingData) &&
+                        <PieChart width={730} height={250}>
+                            <Pie data={this.roleCount} dataKey="value" cx="50%" cy="50%" outerRadius={80} label>
+                                {
+                                    this.roleCount.map((entry, index) => (
+                                        <Cell key={`cell-${index}`}/>
+                                    ))
+                                }
+                            </Pie>
+                        </PieChart>
+                    }
+
                 </div>
                 :
                 <div>
