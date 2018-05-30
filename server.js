@@ -107,8 +107,8 @@ if (cluster.isMaster) {
   });
 
   app.get('/runes', function(req, res) {
-    let championId = Math.floor(Math.random() * 100) + 1;
-    //console.log(championId);
+    let championId = req.query.championId;
+    console.log(req.query.championId);
     instance.get(`/champions/${championId}`)
       .then(response => {
         let data = response.data.data[0].stats.runes.build;
@@ -131,22 +131,22 @@ if (cluster.isMaster) {
       });
   });
 
-    app.get('/build', function(req, res) {
-    //let championId = req.query.summonerId;
-    let championId = Math.floor(Math.random() * 100) + 1;
-    //console.log(championId);
-    instance.get(`/champions/${championId}`)
-      .then(response => {
+  app.get('/build', function(req, res) {
+  let championId = req.query.champion;
+  console.log(championId);
+ // let currChampionId = Math.floor(Math.random() * 100) + 1;
+  instance.get(`/champions/${championId}`)
+    .then(response => {
 
-        let data = response.data.data[0].stats.big_item_builds.build;
-        //console.log(data);
-        
-        return res.send(JSON.stringify(data));
-      })
-      .catch(err => {
-        console.log("BUILD: Issue with championId: ", championId);
-        return res.send(JSON.stringify(defaultBuild));
-      });
+      let data = response.data.data[0].stats.big_item_builds.build;
+      //console.log(data);
+      
+      return res.send(JSON.stringify(data));
+    })
+    .catch(err => {
+      console.log("BUILD: Issue with championId: ", championId);
+      return res.send(JSON.stringify(defaultBuild));
+    });
   });
 
   // All remaining requests return the React app, so it can handle routing.

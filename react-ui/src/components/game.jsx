@@ -13,8 +13,9 @@ class Game extends Component {
         super(props);
 
         this.state = {
-
-        };                      
+            activeGame : null,
+            currChampionId: null
+        };                    
     }
 
     // called when props change
@@ -56,11 +57,24 @@ class Game extends Component {
             return res.json();
         })
         .then(json => {
+            //console.log("active game data:")
             //console.log(json);
+            this.state.activeGame = json;
             let gameStartTime = json.gameStartTime;
             if (this.props.gameData.gameStartTime !== gameStartTime) {
                 this.props.update({queueId: json.gameQueueConfigId, gameStartTime: gameStartTime});
-            }         
+            }
+
+            const participants = json.participants;
+            for(let i = 0; i < participants.length; i++)
+            {
+                if(participants[i].summonerId == summonerId)
+                {
+                    this.state.currChampionId = participants[i].championId;
+                    this.forceUpdate();
+                    //console.log(this.state.currChampionId)
+                }
+            }
         })
         .catch((error) => {
             console.log(error);
@@ -72,10 +86,8 @@ class Game extends Component {
         const {gameData, profileData} = this.props;
         // console.log("gameStartTime: ", gameData);
         // console.log("profileData: ", profileData);
-
         const queueId = gameData != null ? gameData.queueId : null;
         let gameType;
-
         switch(queueId) {
             case 420: 
                 gameType = "Ranked Solo"; break;
@@ -102,7 +114,9 @@ class Game extends Component {
                         <div>
                             <Header style={{color: 'white', fontFamily: 'Legendary'}} size="large">{profileData.name}</Header>
                             <p>{gameType}: <Clock gameStartTime={gameData.gameStartTime} /></p>
-                            <Builds summonerId={profileData.id} />
+                            {this.state.currChampionId != null && 
+                            <Builds championId={this.state.currChampionId}/>
+                            }
                         </div>                    
                     : 
                         <Header size='medium' style={{color: 'white', fontFamily: 'Roboto'}}>

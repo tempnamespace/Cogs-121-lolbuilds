@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import champions from './champions';
+import championsToId from './championsToId';
 import { Grid, Image, Header } from 'semantic-ui-react';
 import Runes from './runes';
 
@@ -62,7 +63,8 @@ class ChampionGrid extends Component {
 
                 {this.state.selectedChampion && 
                     <Runes 
-                        champion={this.state.selectedChampion} 
+                        champion={this.state.selectedChampion}
+                        championId={championsToId[this.state.selectedChampion]} 
                         close={() => {this.setState({selectedChampion: null})}}
                     />}
             </div>

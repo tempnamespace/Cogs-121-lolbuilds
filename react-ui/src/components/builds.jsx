@@ -4,7 +4,7 @@ import { Image } from 'semantic-ui-react';
 class Builds extends Component {
     constructor(props) {
         super(props);
-
+        console.log(props);
         this.state = {
             loading: false,
             buildPath: null
@@ -17,8 +17,9 @@ class Builds extends Component {
 
     fetchBuildRecommendation() {
         this.setState({ loading: true });
-
-        fetch(`/build?champion=${this.props.summonerId}`, {
+        console.log("build")
+        console.log(this.props.championId);
+        fetch(`/build?champion=${this.props.championId}`, {
             method: "GET"
         })
             .then(res => {

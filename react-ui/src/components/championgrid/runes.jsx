@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { Modal, Header, Button, Icon, Container, Image } from 'semantic-ui-react';
 
 //https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/SummonAery/SummonAery.png
@@ -7,7 +6,7 @@ import { Modal, Header, Button, Icon, Container, Image } from 'semantic-ui-react
 class Runes extends Component {
     constructor(props) {
         super(props);
-
+console.log(props);
         this.state = {
             runePage: null,
             modalOpen: true,
@@ -21,8 +20,9 @@ class Runes extends Component {
 
     fetchRunePath() {
         this.setState({ loading: true });
-
-        fetch(`/runes?champion=${this.props.champion}`, {
+        //console.log(this.props.championId);
+        //console.log(this.props.champion);
+        fetch(`/runes?championId=${this.props.championId}`, {
             method: "GET"
         })
             .then(res => {
