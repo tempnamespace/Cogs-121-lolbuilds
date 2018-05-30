@@ -42,7 +42,7 @@ class Profile extends Component {
 
     fetchSummoner = (summoner) => {
         this.setState({ fetchingSummoner: true });
-        fetch(`/matchhistory?summoner=${encodeURIComponent(summoner)}`, {
+        fetch(`/profile?summoner=${encodeURIComponent(summoner)}`, {
             method: "GET"
         })
             .then(response => {

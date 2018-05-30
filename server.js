@@ -51,7 +51,7 @@ if (cluster.isMaster) {
     });
 
 
-  app.get('/matchhistory', function (req, res) {
+  app.get('/profile', function (req, res) {
     let summoner = req.query.summoner;
     //console.log(summoner);
     riotAPI.Summoner
@@ -147,6 +147,45 @@ if (cluster.isMaster) {
       console.log("BUILD: Issue with championId: ", championId);
       return res.send(JSON.stringify(defaultBuild));
     });
+  });
+
+  app.get('/matchhistory', function(req, res) {
+    let accountId = req.query.accountId;
+    let options = {};
+    if (req.query.endIndex) options.endIndex = parseInt(req.query.endIndex);
+
+    riotAPI.Match
+      .gettingListByAccount(accountId, 'na1', options)
+      .then(data => {
+        'use strict';
+        console.log(data)
+        res.set('Content-Type', 'application/json');
+        return res.send(JSON.stringify(data));
+      })
+      .catch(err => {
+        'use strict';
+        console.log(err);
+        return res.sendStatus(404);
+      });
+  });
+
+  app.get('/match', function(req, res) {
+    let gameId = req.query.gameId;
+    let options = {};
+
+    riotAPI.Match
+      .gettingById(gameId, 'na1', options)
+      .then(data => {
+        'use strict';
+        console.log(data)
+        res.set('Content-Type', 'application/json');
+        return res.send(JSON.stringify(data));
+      })
+      .catch(err => {
+        'use strict';
+        console.log(err);
+        return res.sendStatus(404);
+      });
   });
 
   // All remaining requests return the React app, so it can handle routing.
