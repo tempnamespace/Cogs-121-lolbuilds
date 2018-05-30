@@ -230,7 +230,7 @@ class Profile extends Component {
                         <span 
                             id="eloText"
                             style={{
-                                color: '#1f8ecd',
+                                color: 'rgba(113, 181, 189, 1)',
                                 fontFamily: 'Legendary',
                                 position: 'relative',
                                 top: '40px'
