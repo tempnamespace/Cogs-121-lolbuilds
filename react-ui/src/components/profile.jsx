@@ -10,23 +10,38 @@ class Profile extends Component {
         this.state = {
             fetchingSummoner: false,
             inputValue: '',
+            bannerOpacity: 1,
+            bannerTransition: 'opacity 5s',
             // topTransition: 
             renderAnimation: true
         };
 
-        this.bannerOpacity = 1;
-        this.bannerTransition = 'opacity 5s';
-    }    
+        this.unmounted = false;
+    }
+
+    componentWillUnmount() {
+        this.unmounted = true;
+    }
+
+    componentDidMount() {
+        if (this.props.profileData) {
+            setTimeout(() => {
+                if (this.unmounted) {
+                    return;
+                }
+                    
+                this.setState({bannerTransition: 'opacity 5s', bannerOpacity: 0})
+            }, 1400);
+        }
+    }
 
     componentWillReceiveProps() {
         console.log(this.props)
         if (this.props.profileData) {
             this.player.seekTo(0);
-            this.bannerOpacity = 1;
-            this.bannerTransition =  'opacity 0s';
+            this.setState({bannerTransition: 'opacity 0s', bannerOpacity: 1})
             setTimeout(() => {
-                this.bannerTransition = 'opacity 5s';
-                this.bannerOpacity = 0;
+                this.setState({bannerTransition: 'opacity 5s', bannerOpacity: 0})
             }, 1400);
         }
     }
@@ -72,11 +87,11 @@ class Profile extends Component {
                             temp[i].tierRankPhotoKey= tierRankName;
                             console.log(temp[i].tierRankPhotoKey);
 
-                            if(temp[i].queueType == "RANKED_SOLO_5x5")
+                            if(temp[i].queueType === "RANKED_SOLO_5x5")
                             {
                                 rankJson[0] = temp[i];
                             }
-                            else if(temp[i].queueType == "RANKED_FLEX_SR")
+                            else if(temp[i].queueType === "RANKED_FLEX_SR")
                             {
                                 rankJson[1] = temp[i];
                             }
@@ -111,15 +126,6 @@ class Profile extends Component {
     }
 
     render() {
-        
-        setTimeout(() => {
-            if (this.bannerOpacity === 0)
-                return;
-            this.bannerTransition = 'opacity 5s';
-            this.bannerOpacity =  0;
-            this.forceUpdate();
-        }, 1400);
-
         let profileData = this.props.profileData
         let highestELO = {tier: null, rank: null, src: null}
 
@@ -168,9 +174,9 @@ class Profile extends Component {
                         width='100%'                     
                         style={{
                             position: 'absolute',
-                            opacity: this.bannerOpacity,
+                            opacity: this.state.bannerOpacity,
                             top: '4px',
-                            transition: this.bannerTransition
+                            transition: this.state.bannerTransition
                         }}
                         autoPlay
                         url={require('../videos/zuccd.webm')}

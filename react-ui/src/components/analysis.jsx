@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Loader } from 'semantic-ui-react';
+import { Loader, Progress } from 'semantic-ui-react';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import 'abortcontroller-polyfill/dist/polyfill-patch-fetch'
 
@@ -11,8 +11,10 @@ class Analysis extends Component {
         this.state = {
             numMatches: 10,
             matchlist: [],
+            percent: 0
         };
 
+        this.numMatches = 0;
         this.matchlist = [];
         this.matchCount = 0;
         this.controller = new window.AbortController();
@@ -50,6 +52,8 @@ class Analysis extends Component {
         .then(matchJson => {
             this.matchlist.push(matchJson);
             this.matchCount--;
+
+            //this.setState({percent: 100*(this.numMatches - this.matchCount)/this.numMatches});
             // last match to be added            
             if (this.matchCount === 0) {
                 this.setState({ matchlist: this.matchlist, fetchingMatchlists: false });
@@ -64,6 +68,7 @@ class Analysis extends Component {
     }
 
     fetchMatches(accountId, numMatches) {
+        this.numMatches = numMatches;
         this.setState({ fetchingMatchlists: true });
         fetch(`/matchhistory?accountId=${encodeURIComponent(accountId)}&endIndex=${numMatches}`, {
             method: "GET"
@@ -122,11 +127,11 @@ class Analysis extends Component {
         }
 
         let roleCount = [
-            {name: 'top', value: lane["TOP"] || 0},
-            {name: 'jungle', value: lane["JUNGLE"] || 0},
-            {name: 'middle', value: lane["MIDDLE"] || 0},
-            {name: 'bottom', value: role["DUO_CARRY"] || 0},
-            {name: 'support', value: role["DUO_SUPPORT"] || 0}
+            {name: 'Top', value: lane["TOP"] || 0},
+            {name: 'Jungle', value: lane["JUNGLE"] || 0},
+            {name: 'Middle', value: lane["MIDDLE"] || 0},
+            {name: 'Bottom', value: role["DUO_CARRY"] || 0},
+            {name: 'Support', value: role["DUO_SUPPORT"] || 0}
         ]
 
         for (let i = roleCount.length - 1; i >= 0; i--) {
@@ -135,6 +140,10 @@ class Analysis extends Component {
             }
         }
 
+        if (roleCount.length === 0) {
+            console.log("empty match history");
+            roleCount = null;
+        }
         return roleCount;
     }
 
@@ -161,6 +170,8 @@ class Analysis extends Component {
                             active 
                             size="massive" 
                             inline='centered' />
+                        // <Progress size="medium" percent={this.state.percent} success />
+
                     }
 
                     {!(this.state.fetchingMatchlists) && roleCount &&
@@ -168,17 +179,21 @@ class Analysis extends Component {
                             <p id="dataSubtitle">Role Distribution for Last 10 Matches</p>
                             <div className="chart-container">
                                 <PieChart width={250} height={250} class="chart">
-                                    <Pie data={roleCount} dataKey="value" cx="50%" cy="50%" outerRadius={80} label>
+                                    <Pie data={roleCount} dataKey="value" cx="50%" cy="50%" outerRadius={80} fill="#71b5bd" stroke="#010a13" label>
                                         {
                                             roleCount.map((entry, index) => (
                                                 <Cell key={`cell-${index}`}/>
                                             ))
                                         }
                                     </Pie>
-                                    <Tooltip />
+                                    <Tooltip itemStyle={{color: "#c9aa71", padding: "1rem"}} wrapperStyle={{"background": "#010a13", "borderColor": "#c9aa71"}}/>
                                 </PieChart>
                             </div>
                         </div>
+                    }
+
+                    {!(this.state.fetchingMatchlists) && !roleCount &&
+                        <p id="dataSubtitle">No Match History found</p>
                     }
 
                 </div>
