@@ -269,7 +269,7 @@ class Analysis extends Component {
                                 </PieChart>
                             </div>
 
-                            <p id="dataSubtitle">Champion Win Rates for Last {this.state.numMatches} Matches</p>
+                            <p id="dataSubtitle">Top Champion Win Rates for Last {this.state.numMatches} Matches</p>
                             <div className="chart-container">
                                 {
                                     champWinRates.map((entry, index) => (
