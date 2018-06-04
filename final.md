@@ -4,7 +4,7 @@ Adam Schachne
 - Designed our technology stack for the project. Introduced React and revamped our old version of the webpage. Programmed the front end webm animations and backend interactions with the champion grid.
 
 Kelvin Pan
-- Designed the analysis page and the data visualization for player roles. Worked on front end design and set up scss for the project
+- Designed the analysis page and the data visualization for player roles. Worked on front end design and set up sass for the project.
 
 Timothy Bian
 - Set up backend calls to Riot and data APIs for champion builds and runes and utilized them in frontend components.
@@ -29,9 +29,9 @@ home.jsx: just a simple home component
 
 navButtons.jsx: buttons to help navigate to the route pages 
 
-profile.jsx: Allow user to populate the current profile by searching a user name. We will fetch from the backend for this user, parse the information related to the account and display it along with the corresponding photos.
+profile.jsx: Allow user to populate the current profile by searching a user name. We will fetch from the backend for this user, parse the information related to the account and display it along with the corresponding photos and webm animation.
 
-search.jsx: Webm animation player for the user searching done in profile page
+search.jsx: The search bar properties of the profile search in profile.jsx
 
 search.scss: style the animations to be in the correct dimension and colors in order to sync everything and to place the searched user neatly into the webm animation.
 
