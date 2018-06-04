@@ -1,3 +1,8 @@
+/**
+ *  Summoner search component in the profile page. Defines behavior when search occurs
+ *
+ */
+
 import React, { Component } from 'react';
 
 import './search.scss';

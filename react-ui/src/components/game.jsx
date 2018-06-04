@@ -1,3 +1,9 @@
+/**
+ * The active game page. Looks from the searched profile if there is an active game.
+ * Then fetch the information from the backend and render the information. If no active game
+ * is found, just render the champion grid.
+ */
+
 import React, { Component } from 'react';
 import ChampionGrid from './championgrid/championgrid';
 import { Loader, Header } from 'semantic-ui-react';

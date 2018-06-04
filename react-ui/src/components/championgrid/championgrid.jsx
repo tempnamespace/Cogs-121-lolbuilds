@@ -1,7 +1,11 @@
+/**
+ * List out every champion in League of Legends and render them by name using data dragon calls
+ */
+
 import React, { Component } from 'react';
 
 import champions from './champions';
-import championsToId from './championsToId';
+import { championsToId } from './championsToId';
 import { Grid, Image, Header } from 'semantic-ui-react';
 import Runes from './runes';
 

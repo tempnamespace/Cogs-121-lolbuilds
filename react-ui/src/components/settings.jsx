@@ -1,3 +1,7 @@
+/**
+ * Setting page, allows users to clear the currently searched profile
+ */
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Header, Button } from 'semantic-ui-react';
