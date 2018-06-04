@@ -122,6 +122,8 @@ class Analysis extends Component {
                     // if currRole/Lane exists, add 1 game, else initialize
                     currRole in role ? role[currRole]++ : role[currRole] = 1;
                     currLane in lane ? lane[currLane]++ : lane[currLane] = 1;
+
+                    break;
                 }
             }
         }
@@ -147,10 +149,83 @@ class Analysis extends Component {
         return roleCount;
     }
 
+    // given matchlist, returns list of champions and winrates
+    analyzeChampWinRates(matchlist) {
+        let champs = {};
+        let winRates = [];
+
+        for (let i = 0; i < matchlist.length; i++) {
+            const match = matchlist[i];
+            let partId;
+
+            // Find account participant ID
+            for (let j = 0; j < match.participantIdentities.length; j++) {
+                let currPart = match.participantIdentities[j];
+                if (currPart.player.accountId === this.props.profileData.accountId) {
+                    partId = currPart.participantId;
+                    break;
+                }
+            }
+
+            // Get participant data
+            for (let k = 0; k < match.participants.length; k++) {
+                let currPart = match.participants[k];
+                if (currPart.participantId === partId) {
+                    let teamId = currPart.teamId;
+                    let championId = currPart.championId;
+
+                    fetch(`/championName?championId=${encodeURIComponent(championId)}`, {
+                        method: "GET"
+                    })
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(response => {
+                        const championName = response.name;
+                        let teamIndex = match.teams[0].teamId === teamId ? 0 : 1;
+
+                        if (!champs.hasOwnProperty(championName)) {
+                            champs[championName] = {
+                                'wins': 0,
+                                'losses': 0
+                            }
+                        }
+
+                        if (match.teams[teamIndex].win === "Win") {
+                            champs[championName].wins++;
+                        }
+                        else {
+                            champs[championName].losses++;
+                        }
+                    })
+                    .catch((error) => {
+                        console.log("Couldn't get champion name.");
+                    });
+
+                    break;
+                }
+            }
+        }
+
+        for (const key of Object.keys(champs)) {
+
+            let winRate = champs[key].wins / (champs[key].wins + champs[key].losses);
+
+            winRates.push({
+                'champName': champs[key].championName,
+                'winRate': winRate
+            });
+        }
+
+        return winRates;
+    }
+
     render() {
         console.log(this.props.profileData);
 
         const roleCount = this.analyzeRoles(this.state.matchlist);
+        console.log("winrates!!!");
+        console.log(this.analyzeChampWinRates(this.state.matchlist));
 
         return (
             <div style={{ fontFamily: "Roboto" }} className="container">

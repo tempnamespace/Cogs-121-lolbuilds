@@ -4,7 +4,7 @@ Adam Schachne
 - Designed our technology stack for the project. Introduced React and revamped our old version of the webpage. Programmed the front end webm animations and backend interactions with the champion grid.
 
 Kelvin Pan
-- Designed the analysis page and the data visualization for player roles. Worked on front end design and set up scss for the project
+- Designed the analysis page and the data visualization for player roles. Worked on front end design and set up sass for the project.
 
 Timothy Bian
 - Set up backend calls to Riot and data APIs for champion builds and runes and utilized them in frontend components.
