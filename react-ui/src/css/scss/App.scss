@@ -237,6 +237,26 @@ body {
   margin-right: auto;
 }
 
+.data-wr-box {
+  width: 35rem;
+  display: flex;
+  margin-top: 1rem;
+  padding: 1.5rem;
+
+  border-width: 0.1rem;
+  border-style: solid;
+  border-color: $lolBlue;
+
+  .data-wr-name {
+    display: inline-block;
+  }
+
+  .data-wr-num {
+    display: inline-block;
+    margin-left: auto;
+  }
+}
+
 // Settings ///////////////////////////////////////////////////////////////////
 
 // TODO refactor below ////////////////////////////////////////////////////////

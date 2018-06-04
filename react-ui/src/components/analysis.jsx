@@ -224,8 +224,13 @@ class Analysis extends Component {
         console.log(this.props.profileData);
 
         const roleCount = this.analyzeRoles(this.state.matchlist);
-        console.log("winrates!!!");
         console.log(this.analyzeChampWinRates(this.state.matchlist));
+
+        const champWinRates = [
+            { 'champName': 'Ezreal', 'wins': 3, 'winRate': '75%' },
+            { 'champName': 'Brand', 'wins': 1, 'winRate': '50%' },
+            { 'champName': 'Nami', 'wins': 1, 'winRate': '25%' },
+        ];
 
         return (
             <div style={{ fontFamily: "Roboto" }} className="container">
@@ -246,12 +251,11 @@ class Analysis extends Component {
                             size="massive" 
                             inline='centered' />
                         // <Progress size="medium" percent={this.state.percent} success />
-
                     }
 
-                    {!(this.state.fetchingMatchlists) && roleCount &&
+                    {!(this.state.fetchingMatchlists) && roleCount && champWinRates &&
                         <div>
-                            <p id="dataSubtitle">Role Distribution for Last 10 Matches</p>
+                            <p id="dataSubtitle">Role Distribution for Last {this.state.numMatches} Matches</p>
                             <div className="chart-container">
                                 <PieChart width={250} height={250} class="chart">
                                     <Pie data={roleCount} dataKey="value" cx="50%" cy="50%" outerRadius={80} fill="#71b5bd" stroke="#010a13" label>
@@ -264,10 +268,22 @@ class Analysis extends Component {
                                     <Tooltip itemStyle={{color: "#c9aa71", padding: "1rem"}} wrapperStyle={{"background": "#010a13", "borderColor": "#c9aa71"}}/>
                                 </PieChart>
                             </div>
+
+                            <p id="dataSubtitle">Champion Win Rates for Last {this.state.numMatches} Matches</p>
+                            <div className="chart-container">
+                                {
+                                    champWinRates.map((entry, index) => (
+                                        <div class="data-wr-box">
+                                            <div class="data-wr-name">{entry.champName}</div>
+                                            <div class="data-wr-num">{entry.winRate} ({entry.wins} wins)</div>
+                                        </div>
+                                    ))
+                                }
+                            </div>
                         </div>
                     }
 
-                    {!(this.state.fetchingMatchlists) && !roleCount &&
+                    {!(this.state.fetchingMatchlists) && !roleCount && !champWinRates &&
                         <p id="dataSubtitle">No Match History found</p>
                     }
 
