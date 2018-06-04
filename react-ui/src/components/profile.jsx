@@ -234,19 +234,8 @@ class Profile extends Component {
                         {highestELO.tier !== null &&
                         <Image                             
                             src={require(`../images/${highestELO.src}`)} 
-                            style={{width: '100px', top: '55px'}}
+                            style={{width: '120px', top: '55px'}}
                         />}
-                        {highestELO.tier !== null && highestELO.rank !== null &&
-                        <span 
-                            id="eloText"
-                            style={{
-                                color: '#1f8ecd',
-                                fontFamily: 'Legendary',
-                                position: 'relative',
-                                top: '40px'
-                            }}>
-                            {highestELO.tier} {highestELO.rank}
-                        </span>}
                     </div>}                                   
 
                     <div 
