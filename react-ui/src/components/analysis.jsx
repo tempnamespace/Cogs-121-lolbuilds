@@ -15,7 +15,7 @@ class Analysis extends Component {
         super(props);
 
         this.state = {
-            numMatches: 10,
+            numMatches: 15,
             matchlist: [],
             percent: 0
         };
@@ -197,9 +197,7 @@ class Analysis extends Component {
         }
 
         for (const key of Object.keys(champs)) {
-
             let winRate = Math.trunc(champs[key].wins / (champs[key].wins + champs[key].losses) * 100);
-
             winRates.push({
                 'champName': key,
                 'wins': champs[key].wins,
@@ -210,6 +208,19 @@ class Analysis extends Component {
             winRates.sort((a, b) => {
                 return (a.winRate > b.winRate) ? 0 : 1;
             })
+        }
+
+        // Remove until 5 entries, prioritize low win rates and 1-wins
+        while (winRates.length > 5) {
+            if (winRates[winRates.length - 1].winRate < 35) {
+                winRates.splice(-1, 1);
+            }
+            else if (winRates[0].wins == 1) {
+                winRates.splice(0, 1);
+            }
+            else {
+                winRates.splice(-1, 1);
+            }
         }
 
         return winRates;
