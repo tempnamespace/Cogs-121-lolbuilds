@@ -1,3 +1,7 @@
+/**
+ * Used to count the intervals based on game start/end time
+ */
+
 import React, { Component } from 'react';
 import moment from 'moment';
 import momentDurationFormatSetup from 'moment-duration-format';

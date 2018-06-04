@@ -1,3 +1,8 @@
+/**
+ * Game analysis that fetches the current profile's match history and render a pie
+ * chart with the role information
+ */
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Loader, Progress } from 'semantic-ui-react';

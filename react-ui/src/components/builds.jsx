@@ -1,3 +1,7 @@
+/**
+ *  Fetches a build from the backend and render it
+ */
+
 import React, { Component } from 'react';
 import { Image } from 'semantic-ui-react';
 

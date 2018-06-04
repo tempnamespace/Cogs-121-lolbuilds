@@ -1,3 +1,7 @@
+/**
+ * Calculates the ... that will be rendered when checking if user is in game
+ */
+
 import React, { Component } from 'react';
 
 class Ellipsis extends Component {

@@ -1,3 +1,7 @@
+/**
+ * The navigation button for each of the pages in our application
+ */
+
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
