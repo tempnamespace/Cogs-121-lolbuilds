@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Loader, Progress } from 'semantic-ui-react';
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import 'abortcontroller-polyfill/dist/polyfill-patch-fetch'
+import { idToChampions } from './championgrid/championsToId'
 
 class Analysis extends Component {
     constructor(props) {
@@ -38,33 +39,27 @@ class Analysis extends Component {
     componentWillUnmount() {
         this.controller.abort();
     }
-    
 
-    fetchMatch(gameId) {  
-        const signal = this.controller.signal;      
-        fetch(`/match?gameId=${gameId}`, {
-            signal,
-            method: "GET"
-        })
-        .then(matchResponse => {
-            return matchResponse.json();
-        })
-        .then(matchJson => {
+    async fetchMatch(gameId) {
+        try {
+            const signal = this.controller.signal;
+            const matchResponse = await fetch(`/match?gameId=${gameId}`, {signal, method: "GET"});
+            const matchJson = await matchResponse.json();
+            
             this.matchlist.push(matchJson);
             this.matchCount--;
-
-            //this.setState({percent: 100*(this.numMatches - this.matchCount)/this.numMatches});
-            // last match to be added            
+          
             if (this.matchCount === 0) {
+                console.log(this.matchlist)
                 this.setState({ matchlist: this.matchlist, fetchingMatchlists: false });
-            }
-        })
-        .catch((error) => {
+            }   
+        }
+        catch(error) {
             if (error.name === 'AbortError') {
                 return;
             }
             console.error(error);
-        });
+        }
     }
 
     fetchMatches(accountId, numMatches) {
@@ -173,34 +168,23 @@ class Analysis extends Component {
                 if (currPart.participantId === partId) {
                     let teamId = currPart.teamId;
                     let championId = currPart.championId;
+                
+                    const championName = idToChampions[parseInt(championId, 10)];
+                    let teamIndex = match.teams[0].teamId === teamId ? 0 : 1;
 
-                    fetch(`/championName?championId=${encodeURIComponent(championId)}`, {
-                        method: "GET"
-                    })
-                    .then(response => {
-                        return response.json();
-                    })
-                    .then(response => {
-                        const championName = response.name;
-                        let teamIndex = match.teams[0].teamId === teamId ? 0 : 1;
+                    if (!champs.hasOwnProperty(championName)) {
+                        champs[championName] = {
+                            'wins': 0,
+                            'losses': 0
+                        }
+                    }
 
-                        if (!champs.hasOwnProperty(championName)) {
-                            champs[championName] = {
-                                'wins': 0,
-                                'losses': 0
-                            }
-                        }
-
-                        if (match.teams[teamIndex].win === "Win") {
-                            champs[championName].wins++;
-                        }
-                        else {
-                            champs[championName].losses++;
-                        }
-                    })
-                    .catch((error) => {
-                        console.log("Couldn't get champion name.");
-                    });
+                    if (match.teams[teamIndex].win === "Win") {
+                        champs[championName].wins++;
+                    }
+                    else {
+                        champs[championName].losses++;
+                    }
 
                     break;
                 }
@@ -212,7 +196,7 @@ class Analysis extends Component {
             let winRate = champs[key].wins / (champs[key].wins + champs[key].losses);
 
             winRates.push({
-                'champName': champs[key].championName,
+                'champName': key,
                 'winRate': winRate
             });
         }

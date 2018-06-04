@@ -9,4 +9,6 @@ function swap(json){
 }
 
 const championsToId = swap(idToChampions);
-export default championsToId
+
+module.exports.championsToId = championsToId
+module.exports.idToChampions = idToChampions
