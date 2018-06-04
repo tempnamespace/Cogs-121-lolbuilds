@@ -1,3 +1,8 @@
+/**
+ * Fetches the rune page for the champion from the backend, and render it with the photos associated to the
+ * id of the runepage.
+ */
+
 import React, { Component } from 'react';
 import { Modal, Header, Button, Icon, Container, Image } from 'semantic-ui-react';
 

@@ -1,3 +1,7 @@
+/**
+ * List out every champion in League of Legends and render them by name using data dragon calls
+ */
+
 import React, { Component } from 'react';
 
 import champions from './champions';

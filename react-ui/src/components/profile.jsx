@@ -1,3 +1,8 @@
+/**
+ * The profile page. Allows user to search and then fetches the summoner from backend
+ * api calls. Renders the according information from the found summoner.
+ */
+
 import React, { Component } from 'react';
 
 import { Header, Input, Card, Image, Loader } from 'semantic-ui-react'
