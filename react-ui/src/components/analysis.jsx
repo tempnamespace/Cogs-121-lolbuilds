@@ -198,12 +198,18 @@ class Analysis extends Component {
 
         for (const key of Object.keys(champs)) {
 
-            let winRate = champs[key].wins / (champs[key].wins + champs[key].losses);
+            let winRate = Math.trunc(champs[key].wins / (champs[key].wins + champs[key].losses) * 100);
 
             winRates.push({
                 'champName': key,
+                'wins': champs[key].wins,
+                'losses': champs[key].losses,
                 'winRate': winRate
             });
+
+            winRates.sort((a, b) => {
+                return (a.winRate > b.winRate) ? 0 : 1;
+            })
         }
 
         return winRates;
@@ -213,13 +219,7 @@ class Analysis extends Component {
         console.log(this.props.profileData);
 
         const roleCount = this.analyzeRoles(this.state.matchlist);
-        console.log(this.analyzeChampWinRates(this.state.matchlist));
-
-        const champWinRates = [
-            { 'champName': 'Ezreal', 'wins': 3, 'winRate': '75%' },
-            { 'champName': 'Brand', 'wins': 1, 'winRate': '50%' },
-            { 'champName': 'Nami', 'wins': 1, 'winRate': '25%' },
-        ];
+        const champWinRates = this.analyzeChampWinRates(this.state.matchlist);
 
         return (
             <div style={{ fontFamily: "Roboto" }} className="container">
@@ -262,9 +262,9 @@ class Analysis extends Component {
                             <div className="chart-container">
                                 {
                                     champWinRates.map((entry, index) => (
-                                        <div class="data-wr-box">
-                                            <div class="data-wr-name">{entry.champName}</div>
-                                            <div class="data-wr-num">{entry.winRate} ({entry.wins} wins)</div>
+                                        <div className="data-wr-box" key={`data-wr-${index}`}>
+                                            <div className="data-wr-name">{entry.champName}</div>
+                                            <div className="data-wr-num">{entry.winRate}% <span className="font-italic">({entry.wins}W/{entry.losses}L)</span></div>
                                         </div>
                                     ))
                                 }

@@ -228,7 +228,7 @@ body {
 #dataSubtitle {
   font-family: $titleFont;
   font-weight: bold;
-  font-size: $fontSizeNorm;
+  font-size: $fontSizeBig;
   color: $lolBlue;
 }
 
@@ -238,14 +238,19 @@ body {
 }
 
 .data-wr-box {
-  width: 35rem;
+  width: 30rem;
   display: flex;
-  margin-top: 1rem;
-  padding: 1.5rem;
+  margin-top: 0.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 
   border-width: 0.1rem;
   border-style: solid;
   border-color: $lolBlue;
+
+  font-size: $fontSizeNorm;
 
   .data-wr-name {
     display: inline-block;
