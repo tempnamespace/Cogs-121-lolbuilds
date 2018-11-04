@@ -3,14 +3,13 @@
  */
 
 import React, { Component } from 'react';
-
-import champions from './champions';
 import { championsToId } from './championsToId';
 import { Grid, Image, Header } from 'semantic-ui-react';
 import Runes from './runes';
-
 import randomImg from '../../images/Random.png';
 
+const champions = Object.keys(championsToId);
+const VERSION = "8.19.1";
 class ChampionGrid extends Component {
     constructor(props) {
         super(props);
@@ -59,7 +58,7 @@ class ChampionGrid extends Component {
                             key={champion}
                             style={champion !== 'Random' ? {cursor: 'pointer'} : null}
                             src={champion === 'Random' ? randomImg 
-                                : `http://ddragon.leagueoflegends.com/cdn/8.9.1/img/champion/${champion}.png`} 
+                                : `http://ddragon.leagueoflegends.com/cdn/${VERSION}/img/champion/${champion}.png`} 
                             onClick={handleClick(champion)}
                         />
                     )}

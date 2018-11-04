@@ -11,7 +11,7 @@ import { Modal, Header, Button, Icon, Container, Image } from 'semantic-ui-react
 class Runes extends Component {
     constructor(props) {
         super(props);
-console.log(props);
+        console.log(props);
         this.state = {
             runePage: null,
             modalOpen: true,

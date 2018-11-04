@@ -23,7 +23,7 @@ const runeDictionary = {};
 const instance = axios.create({
   baseURL: process.env.LEAGUE_STATS_API
 });
-
+const LOLVERSION = "8.19.1";
 const app = express();
 const defaultRunes = [ 8100, 8112, 8143, 8138, 8105, 8200, 8243, 8210 ];
 const defaultBuild = [ 3285, 3020, 3165, 3089, 3157, 3135 ];
@@ -32,7 +32,9 @@ const defaultBuild = [ 3285, 3020, 3165, 3089, 3157, 3135 ];
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, './react-ui/build')));
 
-axios.get('https://ddragon.leagueoflegends.com/cdn/8.9.1/data/en_US/runesReforged.json')
+//champions.json http://ddragon.leagueoflegends.com/cdn/8.19.1/data/en_US/champion.json
+
+axios.get(`https://ddragon.leagueoflegends.com/cdn/${LOLVERSION}/data/en_US/runesReforged.json`)
   .then(data => {
     //console.log(data.data[0]);
     data.data.forEach(runeTree => {
