@@ -1,0 +1,29 @@
+{
+    "parser": "babel-eslint",
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "node": true,
+        "jest": true,
+        "es6": true
+    },
+    "extends": [
+        "react-app"
+    ],
+    "plugins": [
+        "react"
+    ],
+    "settings": {
+        "react": {
+            "pragma": "React",
+            "version": "latest"
+        }
+    },
+    "parserOptions": {
+        "ecmaVersion": 2015,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    }
+}

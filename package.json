@@ -14,7 +14,7 @@
   ],
   "dependencies": {
     "axios": "^0.18.0",
-    "express": "^4.14.1",
+    "express": "^4.16.4",
     "leaguejs": "^1.9.0"
   },
   "devDependencies": {}
