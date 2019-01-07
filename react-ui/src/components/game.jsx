@@ -17,7 +17,6 @@ const CHECK_RATE = 10000;
 class Game extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             currChampionId: null
         };                    
@@ -55,20 +54,19 @@ class Game extends Component {
     }    
 
     // requests the game info for the current summoner
-    getCurrentGameInfo(summonerId) {
-        fetch(`currentgameinfo?summonerId=${summonerId}`, {
-            method: "GET"
-        })
-        .then(res => {
-            return res.json();
-        })
-        .then(json => {
-            //console.log("active game data:")
-            //console.log(json);            
+    async getCurrentGameInfo (summonerId) {
+        try {
+            const res = await fetch(`currentgameinfo?summonerId=${summonerId}`, {
+                method: "GET"
+            })
+            if (res.status >= 400) return;
+            const json = res.json()
             let gameStartTime = json.gameStartTime;
             if (this.props.gameData.gameStartTime !== gameStartTime) {
                 console.log("updating")
-                this.props.update({queueId: json.gameQueueConfigId, gameStartTime: gameStartTime});
+                this.props.update({
+                    queueId: json.gameQueueConfigId, gameStartTime
+                });
             }
 
             const participants = json.participants;
@@ -84,11 +82,10 @@ class Game extends Component {
                     break;
                 }
             }
-        })
-        .catch((error) => {
+        } catch (error) {
             console.log(error);
             this.props.update({gameStartTime: null});
-        });
+        }
     }
 
     render() {

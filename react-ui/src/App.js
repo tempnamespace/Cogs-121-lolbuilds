@@ -14,18 +14,12 @@ import './css/scss/App.scss';
 class App extends Component {
   constructor(props) {
     super(props);
-
     const profileData = localStorage.getItem("profileData");
-
     this.state = {
       activeButton: window.location.pathname,
       profileData: JSON.parse(profileData),
       gameData: {}
     };
-  }
-
-  componentDidMount() {
-
   }
 
   updateNavButton = (button) => {
@@ -51,15 +45,10 @@ class App extends Component {
   }
 
   updateGame = (incomingState) => {
-    //console.log("updating game")
+    console.log("updating game")
+    console.log(incomingState);
     //take current profile data
-    let newGame = this.state.gameData;
-
-    Object.keys(incomingState).forEach((key) => {
-      //update each new value
-      newGame[key] = incomingState[key];      
-    });
-
+    const newGame = Object.assign({}, this.state.gameData, ...incomingState);
     this.setState({gameData: newGame});
   }
 
@@ -74,7 +63,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-
         <div className="App-header container">          
           <p id="navBrand">Zephyr</p>
           <div id="navMenu">

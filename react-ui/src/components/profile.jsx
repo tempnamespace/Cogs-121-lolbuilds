@@ -249,7 +249,7 @@ class Profile extends Component {
                         >
 
                         {this.state.fetchingSummoner &&
-                        <Loader 
+                        <Loader
                             style={{
                                 position: 'absolute',
                                 marginLeft: 'auto',

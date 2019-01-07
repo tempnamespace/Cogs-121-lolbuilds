@@ -4,9 +4,10 @@
  */
 
 import React, { Component } from 'react';
-import { Modal, Header, Button, Icon, Container, Image } from 'semantic-ui-react';
+import { Modal, Header, Button, Icon, Loader, Image } from 'semantic-ui-react';
 
 //https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/SummonAery/SummonAery.png
+
 
 class Runes extends Component {
     constructor(props) {
@@ -62,7 +63,21 @@ class Runes extends Component {
                     content={this.props.champion}
                 />
                 <Modal.Content>
-                    {runePage == null ? null : (
+                    {runePage == null 
+                    ? 
+                    <Loader 
+                        style={{
+                            marginTop: '220px',
+                            marginLeft: 'auto',
+                            marginRight: 'auto',
+                            width: '100%',
+                            transform: "scale(2)"
+                        }}
+                        active 
+                        size="massive" 
+                        inline='centered' 
+                    />
+                    : (
                         <div
                             style={{
                                 display: 'flex',
@@ -70,7 +85,7 @@ class Runes extends Component {
                                 backgroundColor: "#010a13"
                             }}>
                             <div>
-                                {runePage.filter(rune => runePage.indexOf(rune) < 5).map((rune, i) =>     
+                                {runePage.filter(rune => rune && runePage.indexOf(rune) < 5).map((rune, i) =>     
                                     <Image 
                                         centered={true}
                                         key={i}
@@ -79,7 +94,7 @@ class Runes extends Component {
                                 )}
                             </div>
                             <div>
-                                {runePage.filter(rune => runePage.indexOf(rune) >= 5).map((rune, i) => 
+                                {runePage.filter(rune => rune && runePage.indexOf(rune) >= 5).map((rune, i) => 
                                     <Image 
                                         centered={true}
                                         key={i}
